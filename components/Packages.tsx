@@ -146,7 +146,7 @@ const Packages = () => {
                 {/* Image */}
                 <div className="relative overflow-hidden flex-shrink-0">
                   <img
-                    src={item.featured_image}
+                    src={item.imageUrl}
                     alt={item.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
