@@ -4,7 +4,7 @@ import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import { fetchDestinations } from "@/lib/api";
 import Link from "next/link";
-
+ 
 // Type definition
 interface Destination {
   _id: string;
