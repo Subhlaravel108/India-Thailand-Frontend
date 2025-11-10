@@ -132,7 +132,7 @@ const Destinations = () => {
                   <div className="mt-auto">
                     <Link href={`/destinations/${item.slug}`}>
                       <Button className="w-full bg-orange-500 hover:bg-orange-600 text-white text-sm py-2 transition-colors duration-200">
-                        <span>Explore Destination hlo</span>
+                        <span>Explore Destination</span>
                         <MapPin className="w-3 h-3 ml-2" />
                       </Button>
                     </Link>
