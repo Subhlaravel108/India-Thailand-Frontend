@@ -4,37 +4,42 @@ import { Star, Quote } from "lucide-react";
 const testimonials = [
   {
     id: 1,
-    name: "Sarah Johnson",
-    location: "New York, USA",
-    image: "https://images.unsplash.com/photo-1494790108755-2616b612b786?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    name: "Ravi Sharma",
+    location: "Jaipur, India",
+    image:
+      "https://images.unsplash.com/photo-1603415526960-f7e0328c63b1?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
     rating: 5,
-    text: "Our trip to Santorini was absolutely magical! The team at TravelCo organized everything perfectly. The sunset views were breathtaking and the accommodations exceeded our expectations. Highly recommend!"
+    text: "Our trip from Jaipur to Thailand was perfectly organized by Jaipur-Thailand. Everything from hotels to sightseeing was smooth and well-planned. Bangkok and Phuket experiences were truly unforgettable!"
   },
   {
     id: 2,
-    name: "Michael Chen",
-    location: "Toronto, Canada",
-    image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    name: "Priya Verma",
+    location: "Mumbai, India",
+    image:
+      "https://images.unsplash.com/photo-1544005313-94ddf0286df2?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
     rating: 5,
-    text: "The Japan cultural tour was incredible. Our guide was knowledgeable and friendly, showing us hidden gems we never would have found on our own. Every detail was perfectly planned. Can't wait to book another trip!"
+    text: "We booked a Bali package from Jaipur with Jaipur-Thailand, and it was a dream vacation! The private villa, spa sessions, and local culture — everything was top-notch. Highly professional and friendly team!"
   },
   {
     id: 3,
-    name: "Emma Wilson",
-    location: "London, UK",
-    image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    name: "Aman Singh",
+    location: "Delhi, India",
+    image:
+      "https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
     rating: 5,
-    text: "Bali was a dream come true! The luxury package was worth every penny. From the private villa to the spa treatments, everything was first-class. TravelCo made our honeymoon unforgettable."
+    text: "We booked our honeymoon package from Jaipur to Thailand, and Jaipur-Thailand made it special in every way. Phuket beaches and Bangkok nightlife were absolutely amazing!"
   },
   {
     id: 4,
-    name: "David Rodriguez",
-    location: "Madrid, Spain",
-    image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
+    name: "Neha Patel",
+    location: "Ahmedabad, India",
+    image:
+      "https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?ixlib=rb-4.0.3&auto=format&fit=crop&w=150&q=80",
     rating: 5,
-    text: "The Patagonia adventure was challenging but absolutely rewarding. The landscapes were stunning and our guide's expertise made all the difference. Professional service from start to finish!"
+    text: "Booked a Bali tour from Jaipur for my parents, and they loved every moment. From comfortable flights to luxury stays — Jaipur-Thailand made their journey memorable and stress-free!"
   }
 ];
+
 
 const Testimonials = () => {
   return (

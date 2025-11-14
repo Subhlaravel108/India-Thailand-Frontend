@@ -75,3 +75,15 @@ export const fetchTourByDestination = async ({
 
   return response.data;
 };
+
+
+export const fetchAllBlog=async({page=1,search=""}={})=>{
+    const response=await api.get("/front/blog",{
+        params:{
+            page,
+            search:search || undefined,
+            
+        }
+    })
+    return response.data
+}

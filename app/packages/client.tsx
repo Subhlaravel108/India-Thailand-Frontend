@@ -15,43 +15,22 @@ const PackageCardSkeleton = () => (
     {/* Image Skeleton */}
     <div className="w-full h-48 bg-gray-300 relative">
       <div className="absolute top-4 left-4 w-16 h-6 bg-gray-400 rounded-full"></div>
-      {/* <div className="absolute top-4 right-4 w-16 h-6 bg-gray-400 rounded-full"></div> */}
+      
     </div>
     
     {/* Content Skeleton */}
     <div className="p-6">
       <div className="h-6 bg-gray-300 rounded mb-2 w-3/4"></div>
       
-      {/* <div className="flex items-center justify-between mb-4">
-        <div className="flex items-center space-x-4">
-          <div className="w-16 h-4 bg-gray-300 rounded"></div>
-          <div className="w-20 h-4 bg-gray-300 rounded"></div>
-        </div>
-      </div> */}
+     
       
       <div className="mb-4">
         <div className="flex items-center space-x-2 mb-2">
           <div className="w-full h-8 bg-gray-300 rounded"></div>
-          {/* <div className="w-16 h-4 bg-gray-300 rounded"></div> */}
+          
         </div>
       </div>
-{/*       
-      <div className="mb-4">
-        <div className="h-4 bg-gray-300 rounded mb-2 w-1/3"></div>
-        <div className="flex flex-wrap gap-2">
-          <div className="w-16 h-6 bg-gray-300 rounded"></div>
-          <div className="w-12 h-6 bg-gray-300 rounded"></div>
-        </div>
-      </div>
-      
-      <div className="mb-4">
-        <div className="h-4 bg-gray-300 rounded mb-2 w-1/2"></div>
-        <div className="space-y-1">
-          <div className="w-full h-4 bg-gray-300 rounded"></div>
-          <div className="w-3/4 h-4 bg-gray-300 rounded"></div>
-          <div className="w-1/2 h-3 bg-gray-300 rounded"></div>
-        </div>
-      </div> */}
+
       
       <div className="w-full h-10 bg-gray-300 rounded"></div>
     </div>

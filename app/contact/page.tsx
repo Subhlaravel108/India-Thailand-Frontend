@@ -1,12 +1,13 @@
 import type { Metadata } from 'next'
 import ContactClient from './client'
+import { contactInfo } from '@/lib/global_variables'
 
 export const metadata: Metadata = {
-  title: 'Contact Us - Get in Touch | Wanderlust',
+  title: `Contact Us - Get in Touch | ${contactInfo.websiteName}`,
   description: 'Ready to plan your next adventure? Contact our travel experts for personalized assistance. Call, email, or visit our offices worldwide.',
   keywords: 'contact us, travel experts, customer service, phone, email, office locations, travel consultation',
   openGraph: {
-    title: 'Contact Us - Get in Touch | Wanderlust',
+    title: `Contact Us - Get in Touch | ${contactInfo.websiteName}`,
     description: 'Ready to plan your next adventure? Contact our travel experts for personalized assistance. Call, email, or visit our offices worldwide.',
     type: 'website',
   },

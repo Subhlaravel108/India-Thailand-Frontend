@@ -1,19 +1,20 @@
 import type { Metadata } from "next";
 import React from "react";
 import ToursListingPage from "./client";
+import { contactInfo } from "@/lib/global_variables";
 
 export const metadata: Metadata = {
-  title: "Tours - Best Travel Packages & Adventure Trips | India to Thailand",
+  title: `Tours - Best Travel Packages & Adventure Trips | ${contactInfo.websiteName}`,
   description:
-    "Explore exciting tour packages from India to Thailand and beyond. Discover romantic getaways, adventure tours, family vacations, and group trips — all with India to Thailand.",
+    "Explore exciting tour packages from Jaipur to Thailand and beyond. Discover romantic getaways, adventure tours, family vacations, and group trips — all with Jaipur to Thailand.",
   keywords:
-    "India to Thailand, Thailand tours, travel packages, adventure trips, honeymoon tours, family vacations, international travel, best Thailand packages",
+    "Jaipur to Thailand, Thailand tours, travel packages, adventure trips, honeymoon tours, family vacations, international travel, best Thailand packages",
   openGraph: {
-    title: "Tours - Best Travel Packages & Adventure Trips | India to Thailand",
+    title: "Tours - Best Travel Packages & Adventure Trips | Jaipur to Thailand",
     description:
-      "Explore exciting tour packages from India to Thailand and beyond. Discover romantic getaways, adventure tours, family vacations, and group trips — all with India to Thailand.",
+      "Explore exciting tour packages from Jaipur to Thailand and beyond. Discover romantic getaways, adventure tours, family vacations, and group trips — all with Jaipur to Thailand.",
     type: "website",
-    siteName: "India to Thailand",
+    siteName: "Jaipur to Thailand",
   },
 };
 

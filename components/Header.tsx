@@ -6,6 +6,7 @@ import { Menu, X, MapPin, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
+import { contactInfo } from "@/lib/global_variables";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -21,16 +22,16 @@ const Header = () => {
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
               <Phone className="w-4 h-4" />
-              <span>+1 (555) 123-4567</span>
+              <span>{contactInfo.phones[0]}</span>
             </div>
             <div className="flex items-center space-x-2">
               <Mail className="w-4 h-4" />
-              <span>info@travelco.com</span>
+              <span>{contactInfo.emails[0]}</span>
             </div>
           </div>
           <div className="flex items-center space-x-2">
             <MapPin className="w-4 h-4" />
-            <span>New York, USA</span>
+            <span>{contactInfo.location}</span>
           </div>
         </div>
       </div>
@@ -39,7 +40,7 @@ const Header = () => {
       <nav className="container mx-auto px-4 py-4">
         <div className="flex justify-between items-center">
           <Link href="/" className="text-2xl font-bold text-blue-900">
-            Travel<span className="text-orange-500">Co</span>
+            {contactInfo.websiteName}<span className="text-orange-500"></span>
           </Link>
 
           {/* Desktop Navigation */}
@@ -67,6 +68,14 @@ const Header = () => {
               }`}
             >
               Packages
+            </Link>
+            <Link 
+              href="/blog" 
+              className={`transition-colors font-medium ${
+                isActive('/blog') ? 'text-blue-900' : 'text-gray-700 hover:text-blue-900'
+              }`}
+            >
+              Blog
             </Link>
             <Link 
               href="/about" 

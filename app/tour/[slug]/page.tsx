@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import TourDetailClient from "./client";
 import api from "@/lib/api";
+import { contactInfo } from "@/lib/global_variables";
 
 interface TourDetailPageProps {
   params: { slug: string };
@@ -17,13 +18,13 @@ export async function generateMetadata({ params }: TourDetailPageProps): Promise
 
     if (!tour) {
       return {
-        title: "Tour Not Found - India to Thailand",
+        title: `Tour Not Found - ${contactInfo.websiteName}`,
         description: "The requested tour could not be found.",
       };
     }
 
     return {
-      title: `${tour.meta_title} | India to Thailand`,
+      title: `${tour.meta_title} | ${contactInfo.websiteName}`,
       description: tour.meta_description,
       openGraph: {
         title: tour.meta_title,
@@ -34,7 +35,7 @@ export async function generateMetadata({ params }: TourDetailPageProps): Promise
   } catch (error) {
     console.error("Metadata fetch error:", error);
     return {
-      title: "Tour Not Found - India to Thailand",
+      title: `Tour Not Found - ${contactInfo.websiteName}`,
       description: "The requested tour could not be found.",
     };
   }

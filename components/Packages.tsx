@@ -7,57 +7,7 @@ import { useEffect, useState } from "react";
 import { fetchTourPackages } from "@/lib/api";
 import Link from "next/link";
 
-// const packages = [
-//   {
-//     id: 1,
-//     name: "Adventure Explorer",
-//     price: "$199",
-//     period: "per person",
-//     image: "https://images.unsplash.com/photo-1551632811-561732d1e306?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-//     features: [
-//       "5 Days Adventure Tour",
-//       "Professional Guide",
-//       "All Equipment Included",
-//       "Transportation",
-//       "2 Meals Daily",
-//       "Group of 8-12 People"
-//     ],
-//     popular: false
-//   },
-//   {
-//     id: 2,
-//     name: "Luxury Escape",
-//     price: "$599",
-//     period: "per person",
-//     image: "https://images.unsplash.com/photo-1571896349842-33c89424de2d?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-//     features: [
-//       "7 Days Luxury Experience",
-//       "Private Guide & Driver",
-//       "5-Star Accommodations",
-//       "All Meals Included",
-//       "Spa & Wellness Sessions",
-//       "VIP Airport Transfers",
-//       "Flexible Itinerary"
-//     ],
-//     popular: true
-//   },
-//   {
-//     id: 3,
-//     name: "Cultural Journey",
-//     price: "$349",
-//     period: "per person",
-//     image: "https://images.unsplash.com/photo-1469854523086-cc02fe5d8800?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80",
-//     features: [
-//       "8 Days Cultural Tour",
-//       "Local Expert Guide",
-//       "Historical Site Access",
-//       "Traditional Experiences",
-//       "Local Cuisine Tasting",
-//       "Small Group (4-8 People)"
-//     ],
-//     popular: false
-//   }
-// ];
+
 const PackageCardSkeleton = () => (
   <div className="bg-white rounded-2xl shadow-lg overflow-hidden animate-pulse">
     {/* Image Skeleton */}

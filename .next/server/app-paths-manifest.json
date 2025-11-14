@@ -1,3 +1,23 @@
 {
-  "/page": "app/page.js"
+  "/blog/[slug]/page": "app/blog/[slug]/page.js",
+  "/tour/[slug]/page": "app/tour/[slug]/page.js",
+  "/custom-tours/page": "app/custom-tours/page.js",
+  "/Cookie-Policy/page": "app/Cookie-Policy/page.js",
+  "/car-rentals/page": "app/car-rentals/page.js",
+  "/blog/page": "app/blog/page.js",
+  "/destinations/[slug]/page": "app/destinations/[slug]/page.js",
+  "/about/page": "app/about/page.js",
+  "/book-now/page": "app/book-now/page.js",
+  "/hotel-reservations/page": "app/hotel-reservations/page.js",
+  "/flight-booking/page": "app/flight-booking/page.js",
+  "/_not-found/page": "app/_not-found/page.js",
+  "/packages/page": "app/packages/page.js",
+  "/contact/page": "app/contact/page.js",
+  "/terms-of-service/page": "app/terms-of-service/page.js",
+  "/travel-insurance/page": "app/travel-insurance/page.js",
+  "/visa-assistance/page": "app/visa-assistance/page.js",
+  "/destinations/page": "app/destinations/page.js",
+  "/page": "app/page.js",
+  "/privacy-policy/page": "app/privacy-policy/page.js",
+  "/package/[slug]/page": "app/package/[slug]/page.js"
 }

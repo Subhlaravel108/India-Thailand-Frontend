@@ -2,9 +2,10 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { Button } from "@/components/ui/button"
 import { Home, ArrowLeft } from "lucide-react"
+import { contactInfo } from '@/lib/global_variables'
 
 export const metadata: Metadata = {
-  title: '404 - Page Not Found | Wanderlust',
+  title: `404 - Page Not Found | ${contactInfo.websiteName}`,
   description: 'Sorry, the page you are looking for could not be found. Return to our homepage to continue exploring amazing travel destinations.',
   robots: 'noindex, nofollow',
 }
