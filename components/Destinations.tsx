@@ -127,7 +127,7 @@ const Destinations = () => {
                       )}
                     </p>
                   </div>
-  
+   
                   {/* CTA */}
                   <div className="mt-auto">
                     <Link href={`/destinations/${item.slug}`}>
