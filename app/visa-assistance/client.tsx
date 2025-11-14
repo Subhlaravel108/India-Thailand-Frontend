@@ -3,29 +3,29 @@
 import { useState } from "react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import axios from "axios";
+import { toast } from "sonner";
+import api from "@/lib/api";
 
 export default function VisaAssistanceClient() {
   const [form, setForm] = useState({
     name: "",
     email: "",
     phone: "",
-    passport: "",
-    passportExpiry: "",
-    dob: "",
+    nationality: "",
+    passportNumber: "",
     travelDate: "",
-    returnDate: "",
-    purpose: "",
-    travelers: "",
     message: "",
   });
 
   const [errors, setErrors] = useState<any>({});
+  const [loading, setLoading] = useState(false);
+  const [success, setSuccess] = useState("");
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
   ) => {
     const { name, value } = e.target;
-
     setForm({ ...form, [name]: value });
     setErrors({ ...errors, [name]: "" });
   };
@@ -35,33 +35,62 @@ export default function VisaAssistanceClient() {
 
     if (!form.name.trim()) newErrors.name = "Full name is required";
     if (!form.email.trim()) newErrors.email = "Email is required";
+    else if (!/\S+@\S+\.\S+/.test(form.email))
+      newErrors.email = "Enter a valid email address";
+    
     if (!form.phone.trim()) newErrors.phone = "Phone number is required";
-
-    if (!form.passport.trim()) newErrors.passport = "Passport number is required";
-    if (!form.passportExpiry.trim())
-      newErrors.passportExpiry = "Passport expiry date is required";
-
-    if (!form.dob.trim()) newErrors.dob = "Date of birth is required";
-
+    else if (!/^[0-9]{10}$/.test(form.phone))
+      newErrors.phone = "Enter a valid 10-digit phone number";
+    
+    if (!form.nationality.trim()) newErrors.nationality = "Nationality is required";
+    if (!form.passportNumber.trim()) newErrors.passportNumber = "Passport number is required";
     if (!form.travelDate.trim()) newErrors.travelDate = "Travel date is required";
-    if (!form.returnDate.trim()) newErrors.returnDate = "Return date is required";
-
-    if (!form.purpose.trim()) newErrors.purpose = "Purpose of visit is required";
-
-    if (!form.travelers.trim())
-      newErrors.travelers = "Number of travelers is required";
-
-    if (!form.message.trim()) newErrors.message = "Message is required";
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (validate()) {
-      alert("Visa Assistance Form Submitted Successfully!");
+    if (!validate()) return;
+
+    setLoading(true);
+    try {
+      const payload = {
+        ...form,
+        serviceType: "visa"
+      };
+
+      const res = await api.post('/service', payload);
+      
+      if (res.data.success) {
+        setSuccess("✅ Visa assistance request submitted successfully!");
+        toast.success("Visa assistance request submitted successfully!");
+        setForm({
+          name: "",
+          email: "",
+          phone: "",
+          nationality: "",
+          passportNumber: "",
+          travelDate: "",
+          message: "",
+        });
+      } else {
+        setSuccess("❌ Failed to submit request. Please try again.");
+        toast.error("Failed to submit request. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      setSuccess(error.response?.data?.message || "⚠️ Server error occurred. Please try again.");
+      toast.error(error.response?.data?.message || "⚠️ Server error occurred. Please try again.");
+    } finally {
+      setLoading(false);
     }
+  };
+
+  // Get today's date for date input min attribute
+  const getTodayDate = () => {
+    return new Date().toISOString().split('T')[0];
   };
 
   return (
@@ -71,12 +100,10 @@ export default function VisaAssistanceClient() {
       <section className="py-16 bg-gradient-to-b from-pink-50 to-white text-gray-800">
         <div className="max-w-5xl mx-auto text-center px-4">
           <h1 className="text-4xl font-bold mb-6 text-pink-700">
-            Visa Assistance
+            🛂 Visa Assistance
           </h1>
           <p className="text-lg mb-8 text-gray-600">
-            Planning your Thailand trip from Jaipur? Our visa experts provide
-            end-to-end support — from documentation to appointment scheduling
-            and final approval.
+            Get expert visa assistance for your international travels. Our team provides end-to-end support — from documentation to appointment scheduling and final approval.
           </p>
 
           {/* Features */}
@@ -97,174 +124,158 @@ export default function VisaAssistanceClient() {
 
           {/* FORM */}
           <div className="max-w-4xl mx-auto bg-white shadow-lg rounded-2xl p-8 text-left">
-            <h2 className="text-2xl font-bold text-pink-700 mb-6">
+            <h2 className="text-2xl font-bold text-pink-700 mb-6 text-center">
               Visa Assistance Inquiry Form
             </h2>
 
-            <form onSubmit={handleSubmit} className="grid grid-cols-2 gap-4">
-
+            <form onSubmit={handleSubmit} className="grid grid-cols-1 md:grid-cols-2 gap-6">
               {/* Full Name */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Full Name</label>
+              <div>
+                <label className="block font-medium mb-1">Full Name *</label>
                 <input
                   type="text"
                   name="name"
                   value={form.name}
                   onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
+                  className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 ${
+                    errors.name ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="Enter your full name"
                 />
-                {errors.name && <p className="text-red-500 text-sm">{errors.name}</p>}
+                {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
               </div>
 
               {/* Email */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Email</label>
+              <div>
+                <label className="block font-medium mb-1">Email *</label>
                 <input
                   type="email"
                   name="email"
                   value={form.email}
                   onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
+                  className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="Enter your email"
                 />
-                {errors.email && <p className="text-red-500 text-sm">{errors.email}</p>}
+                {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
               </div>
 
               {/* Phone */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Phone</label>
+              <div>
+                <label className="block font-medium mb-1">Phone *</label>
                 <input
-                  type="number"
+                  type="tel"
                   name="phone"
                   value={form.phone}
                   onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
+                  className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 ${
+                    errors.phone ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="10-digit phone number"
                 />
-                {errors.phone && <p className="text-red-500 text-sm">{errors.phone}</p>}
+                {errors.phone && <p className="text-red-500 text-sm mt-1">{errors.phone}</p>}
               </div>
 
-              {/* Passport */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Passport Number</label>
+              {/* Nationality */}
+              <div>
+                <label className="block font-medium mb-1">Nationality *</label>
+                <select
+                  name="nationality"
+                  value={form.nationality}
+                  onChange={handleChange}
+                  className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 ${
+                    errors.nationality ? "border-red-500" : "border-gray-300"
+                  }`}
+                >
+                  <option value="">Select Nationality</option>
+                  <option value="Indian">Indian</option>
+                  <option value="American">American</option>
+                  <option value="British">British</option>
+                  <option value="Canadian">Canadian</option>
+                  <option value="Australian">Australian</option>
+                  <option value="German">German</option>
+                  <option value="French">French</option>
+                  <option value="Other">Other</option>
+                </select>
+                {errors.nationality && <p className="text-red-500 text-sm mt-1">{errors.nationality}</p>}
+              </div>
+
+              {/* Passport Number */}
+              <div>
+                <label className="block font-medium mb-1">Passport Number *</label>
                 <input
                   type="text"
-                  name="passport"
-                  value={form.passport}
+                  name="passportNumber"
+                  value={form.passportNumber}
                   onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
+                  className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 ${
+                    errors.passportNumber ? "border-red-500" : "border-gray-300"
+                  }`}
+                  placeholder="Enter passport number"
                 />
-                {errors.passport && <p className="text-red-500 text-sm">{errors.passport}</p>}
-              </div>
-
-              {/* Passport Expiry */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Passport Expiry Date</label>
-                <input
-                  type="date"
-                  name="passportExpiry"
-                  value={form.passportExpiry}
-                  onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
-                />
-                {errors.passportExpiry && (
-                  <p className="text-red-500 text-sm">{errors.passportExpiry}</p>
-                )}
-              </div>
-
-              {/* DOB */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Date of Birth</label>
-                <input
-                  type="date"
-                  name="dob"
-                  value={form.dob}
-                  onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
-                />
-                {errors.dob && <p className="text-red-500 text-sm">{errors.dob}</p>}
+                {errors.passportNumber && <p className="text-red-500 text-sm mt-1">{errors.passportNumber}</p>}
               </div>
 
               {/* Travel Date */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Travel Date</label>
+              <div>
+                <label className="block font-medium mb-1">Travel Date *</label>
                 <input
                   type="date"
                   name="travelDate"
                   value={form.travelDate}
                   onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
+                  min={getTodayDate()}
+                  className={`w-full p-3 border rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400 ${
+                    errors.travelDate ? "border-red-500" : "border-gray-300"
+                  }`}
                 />
-                {errors.travelDate && <p className="text-red-500 text-sm">{errors.travelDate}</p>}
+                {errors.travelDate && <p className="text-red-500 text-sm mt-1">{errors.travelDate}</p>}
               </div>
 
-              {/* Return Date */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Return Date</label>
-                <input
-                  type="date"
-                  name="returnDate"
-                  value={form.returnDate}
-                  onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
-                />
-                {errors.returnDate && (
-                  <p className="text-red-500 text-sm">{errors.returnDate}</p>
-                )}
-              </div>
-
-              {/* Purpose */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Purpose of Visit</label>
-                <select
-                  name="purpose"
-                  value={form.purpose}
-                  onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
-                >
-                  <option value="">Select</option>
-                  <option value="Tourism">Tourism</option>
-                  <option value="Business">Business</option>
-                  <option value="Family Visit">Family Visit</option>
-                </select>
-                {errors.purpose && <p className="text-red-500 text-sm">{errors.purpose}</p>}
-              </div>
-
-              {/* Travelers */}
-              <div className="mb-5">
-                <label className="block font-medium mb-1">Number of Travelers</label>
-                <input
-                  type="number"
-                  name="travelers"
-                  value={form.travelers}
-                  onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
-                />
-                {errors.travelers && (
-                  <p className="text-red-500 text-sm">{errors.travelers}</p>
-                )}
-              </div>
-
-              {/* Message */}
-              <div className="mb-5 grid col-span-2">
-                <label className="block font-medium mb-1">Message</label>
+              {/* Message - Full Width */}
+              <div className="md:col-span-2">
+                <label className="block font-medium mb-1">Additional Information</label>
                 <textarea
                   name="message"
                   rows={4}
                   value={form.message}
                   onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
+                  className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-pink-400"
+                  placeholder="Any specific visa requirements, previous visa history, or additional information..."
                 />
-                {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
               </div>
 
-              <div className="w-full flex justify-center border col-span-2">
-                  <button
-                type="submit"
-                className="w-full bg-pink-600 text-white py-3 rounded-md font-semibold hover:bg-pink-700 transition"
-              >
-                Submit Visa Inquiry
-              </button>
+              {/* Submit Button - Full Width */}
+              <div className="md:col-span-2 text-center">
+                <button
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-pink-600 text-white py-3 rounded-lg font-semibold hover:bg-pink-700 transition disabled:bg-pink-400 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Processing...
+                    </span>
+                  ) : (
+                    "Submit Visa Assistance Request"
+                  )}
+                </button>
+                <p className="text-sm text-gray-500 mt-2">
+                  * Required fields
+                </p>
               </div>
             </form>
+
+            {success && (
+              <p className={`text-center mt-6 font-medium ${
+                success.includes("✅") ? "text-green-600" : 
+                success.includes("❌") ? "text-red-600" : "text-yellow-600"
+              }`}>
+                {success}
+              </p>
+            )}
           </div>
         </div>
       </section>

@@ -4,27 +4,31 @@ import React, { useState, ChangeEvent, FormEvent } from "react";
 import { Bed, MapPin, ShieldCheck, Stars } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
-
+import axios from "axios";
+import { toast } from "sonner";
+import api from "@/lib/api";
 interface FormData {
   name: string;
   email: string;
   phone: string;
+  hotelName: string;
   checkIn: string;
   checkOut: string;
-  guests: string;
-  roomType: string;
-  message:string;
+  rooms: string;
+  travellers: string;
+  message: string;
 }
 
 interface FormErrors {
   name?: string;
   email?: string;
   phone?: string;
+  hotelName?: string;
   checkIn?: string;
   checkOut?: string;
-  guests?: string;
-  roomType?: string;
-  message?:string;
+  rooms?: string;
+  travellers?: string;
+  message?: string;
 }
 
 const HotelReservationsClient: React.FC = () => {
@@ -32,15 +36,17 @@ const HotelReservationsClient: React.FC = () => {
     name: "",
     email: "",
     phone: "",
+    hotelName: "",
     checkIn: "",
     checkOut: "",
-    guests: "",
-    roomType: "",
-    message:""
+    rooms: "",
+    travellers: "",
+    message: ""
   });
 
   const [errors, setErrors] = useState<FormErrors>({});
-
+  const [loading, setLoading] = useState(false);
+  const [success,setSuccess]=useState("")
   // Handle input change
   const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target;
@@ -61,14 +67,18 @@ const HotelReservationsClient: React.FC = () => {
       newErrors.phone = "Enter a valid 10-digit phone number.";
     if (!formData.checkIn.trim()) newErrors.checkIn = "Check-in date is required.";
     if (!formData.checkOut.trim()) newErrors.checkOut = "Check-out date is required.";
-    if (!formData.guests.trim()) newErrors.guests = "Number of guests is required.";
-    if (!formData.roomType.trim()) newErrors.roomType = "Select a room type.";
+    if (!formData.rooms.trim()) newErrors.rooms = "Number of rooms is required.";
+    else if (isNaN(Number(formData.rooms)) || Number(formData.rooms) < 1)
+      newErrors.rooms = "At least 1 room is required.";
+    if (!formData.travellers.trim()) newErrors.travellers = "Number of travellers is required.";
+    else if (isNaN(Number(formData.travellers)) || Number(formData.travellers) < 1)
+      newErrors.travellers = "At least 1 traveller is required.";
 
     return newErrors;
   };
 
   // Handle form submit
-  const handleSubmit = (e: FormEvent) => {
+  const handleSubmit = async (e: FormEvent) => {
     e.preventDefault();
     const newErrors = validateForm();
 
@@ -77,19 +87,51 @@ const HotelReservationsClient: React.FC = () => {
       return;
     }
 
-    console.log("✅ Hotel Reservation Data:", formData);
-    alert("Your hotel reservation request has been submitted successfully!");
+    setLoading(true);
+    
+    try {
+      const payload = {
+        ...formData,
+        serviceType: "hotel",
+        rooms: parseInt(formData.rooms),
+        travellers: parseInt(formData.travellers)
+      };
 
-    setFormData({
-      name: "",
-      email: "",
-      phone: "",
-      checkIn: "",
-      checkOut: "",
-      guests: "",
-      roomType: "",
-      message:""
-    });
+      const res = await api.post('/service', payload);
+      
+      if (res.data.success) {
+        // console.log("✅ Hotel Reservation Data:", formData);
+        toast.success("Your hotel reservation request has been submitted successfully!");
+        setSuccess("✅ Your hotel reservation request has been submitted successfully!");
+
+        // Reset form
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          hotelName: "",
+          checkIn: "",
+          checkOut: "",
+          rooms: "",
+          travellers: "",
+          message: ""
+        });
+      } else {
+        toast.error("Failed to submit reservation. Please try again.");
+        setSuccess("❌ Failed to submit reservation. Please try again.");
+      }
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      toast.error(error.response?.data?.message || "Failed to submit reservation. Please try again.");
+      setSuccess(error.response?.data?.message || "❌ Failed to submit reservation. Please try again.");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Get today's date for date input min attribute
+  const getTodayDate = () => {
+    return new Date().toISOString().split('T')[0];
   };
 
   return (
@@ -154,23 +196,24 @@ const HotelReservationsClient: React.FC = () => {
           </div>
 
           {/* Reservation Form */}
-          <div className="bg-white shadow-lg rounded-2xl p-8 max-w-4xl mx-auto">
+          <div className="bg-white shadow-lg rounded-2xl p-8 max-w-5xl mx-auto">
             <h2 className="text-2xl font-semibold text-gray-800 mb-6">
               🧾 Hotel Booking Form
             </h2>
 
-            <form onSubmit={handleSubmit} className=" text-left grid grid-cols-2 gap-4">
+            <form onSubmit={handleSubmit} className="text-left grid grid-cols-1 md:grid-cols-2 gap-4">
               {/* Name */}
               <div>
-                <label className="block text-gray-700 mb-1">Full Name</label>
+                <label className="block text-gray-700 mb-1">Full Name *</label>
                 <input
                   type="text"
                   name="name"
                   value={formData.name}
                   onChange={handleChange}
                   className={`w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 ${
-                    errors.name ? "border-red-500" : "border-gray-300"
+                    errors.name ? "border-red-500 focus:ring-red-200" : "border-gray-300 focus:ring-yellow-200"
                   }`}
+                  placeholder="Enter your full name"
                 />
                 {errors.name && (
                   <p className="text-red-500 text-sm mt-1">{errors.name}</p>
@@ -179,15 +222,16 @@ const HotelReservationsClient: React.FC = () => {
 
               {/* Email */}
               <div>
-                <label className="block text-gray-700 mb-1">Email</label>
+                <label className="block text-gray-700 mb-1">Email *</label>
                 <input
                   type="email"
                   name="email"
                   value={formData.email}
                   onChange={handleChange}
                   className={`w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 ${
-                    errors.email ? "border-red-500" : "border-gray-300"
+                    errors.email ? "border-red-500 focus:ring-red-200" : "border-gray-300 focus:ring-yellow-200"
                   }`}
+                  placeholder="Enter your email"
                 />
                 {errors.email && (
                   <p className="text-red-500 text-sm mt-1">{errors.email}</p>
@@ -196,31 +240,46 @@ const HotelReservationsClient: React.FC = () => {
 
               {/* Phone */}
               <div>
-                <label className="block text-gray-700 mb-1">Phone</label>
+                <label className="block text-gray-700 mb-1">Phone *</label>
                 <input
                   type="text"
                   name="phone"
                   value={formData.phone}
                   onChange={handleChange}
                   className={`w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 ${
-                    errors.phone ? "border-red-500" : "border-gray-300"
+                    errors.phone ? "border-red-500 focus:ring-red-200" : "border-gray-300 focus:ring-yellow-200"
                   }`}
+                  placeholder="10-digit phone number"
                 />
                 {errors.phone && (
                   <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
                 )}
               </div>
 
-              {/* Check-in */}
+              {/* Hotel Name */}
               <div>
-                <label className="block text-gray-700 mb-1">Check-In Date</label>
+                <label className="block text-gray-700 mb-1">Hotel Name (Optional)</label>
+                <input
+                  type="text"
+                  name="hotelName"
+                  value={formData.hotelName}
+                  onChange={handleChange}
+                  className="w-full px-4 py-2 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-yellow-200"
+                  placeholder="Specific hotel preference"
+                />
+              </div>
+
+              {/* Check-in Date */}
+              <div>
+                <label className="block text-gray-700 mb-1">Check-In Date *</label>
                 <input
                   type="date"
                   name="checkIn"
                   value={formData.checkIn}
                   onChange={handleChange}
+                  min={getTodayDate()}
                   className={`w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 ${
-                    errors.checkIn ? "border-red-500" : "border-gray-300"
+                    errors.checkIn ? "border-red-500 focus:ring-red-200" : "border-gray-300 focus:ring-yellow-200"
                   }`}
                 />
                 {errors.checkIn && (
@@ -228,16 +287,17 @@ const HotelReservationsClient: React.FC = () => {
                 )}
               </div>
 
-              {/* Check-out */}
+              {/* Check-out Date */}
               <div>
-                <label className="block text-gray-700 mb-1">Check-Out Date</label>
+                <label className="block text-gray-700 mb-1">Check-Out Date *</label>
                 <input
                   type="date"
                   name="checkOut"
                   value={formData.checkOut}
                   onChange={handleChange}
+                  min={formData.checkIn || getTodayDate()}
                   className={`w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 ${
-                    errors.checkOut ? "border-red-500" : "border-gray-300"
+                    errors.checkOut ? "border-red-500 focus:ring-red-200" : "border-gray-300 focus:ring-yellow-200"
                   }`}
                 />
                 {errors.checkOut && (
@@ -245,67 +305,92 @@ const HotelReservationsClient: React.FC = () => {
                 )}
               </div>
 
-              {/* Guests */}
+              {/* Number of Rooms */}
               <div>
-                <label className="block text-gray-700 mb-1">Number of Guests</label>
+                <label className="block text-gray-700 mb-1">Number of Rooms *</label>
                 <input
                   type="number"
-                  name="guests"
-                  value={formData.guests}
+                  name="rooms"
+                  value={formData.rooms}
                   onChange={handleChange}
                   min="1"
+                  max="10"
                   className={`w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 ${
-                    errors.guests ? "border-red-500" : "border-gray-300"
+                    errors.rooms ? "border-red-500 focus:ring-red-200" : "border-gray-300 focus:ring-yellow-200"
                   }`}
+                  placeholder="Number of rooms needed"
                 />
-                {errors.guests && (
-                  <p className="text-red-500 text-sm mt-1">{errors.guests}</p>
+                {errors.rooms && (
+                  <p className="text-red-500 text-sm mt-1">{errors.rooms}</p>
                 )}
               </div>
 
-              {/* Room Type */}
+              {/* Number of Travellers */}
               <div>
-                <label className="block text-gray-700 mb-1">Room Type</label>
-                <select
-                  name="roomType"
-                  value={formData.roomType}
+                <label className="block text-gray-700 mb-1">Number of Travellers *</label>
+                <input
+                  type="number"
+                  name="travellers"
+                  value={formData.travellers}
                   onChange={handleChange}
+                  min="1"
+                  max="50"
                   className={`w-full px-4 py-2 border rounded-xl outline-none focus:ring-2 ${
-                    errors.roomType ? "border-red-500" : "border-gray-300"
+                    errors.travellers ? "border-red-500 focus:ring-red-200" : "border-gray-300 focus:ring-yellow-200"
                   }`}
-                >
-                  <option value="">Select a room type</option>
-                  <option value="Standard">Standard Room</option>
-                  <option value="Deluxe">Deluxe Room</option>
-                  <option value="Suite">Suite</option>
-                </select>
-                {errors.roomType && (
-                  <p className="text-red-500 text-sm mt-1">{errors.roomType}</p>
+                  placeholder="Total number of guests"
+                />
+                {errors.travellers && (
+                  <p className="text-red-500 text-sm mt-1">{errors.travellers}</p>
                 )}
               </div>
 
-                 <div className="mb-5 grid col-span-2">
-                <label className="block font-medium mb-1">Message</label>
+              {/* Message - Full Width */}
+              <div className="md:col-span-2">
+                <label className="block text-gray-700 mb-1">
+                  Additional Requirements
+                </label>
                 <textarea
                   name="message"
                   rows={4}
                   value={formData.message}
                   onChange={handleChange}
-                  className="w-full p-3 border rounded-md"
+                  className="w-full px-4 py-2 border border-gray-300 rounded-xl outline-none focus:ring-2 focus:ring-yellow-200"
+                  placeholder="Any specific requirements, room preferences, special requests, or additional information..."
                 />
-                {errors.message && <p className="text-red-500 text-sm">{errors.message}</p>}
               </div>
 
-              {/* Submit */}
-              <div className="col-span-2">
+              {/* Submit Button - Full Width */}
+              <div className="md:col-span-2">
                 <button
-                type="submit"
-                className="w-full bg-yellow-500 text-white font-semibold py-2 rounded-xl hover:bg-yellow-600 transition"
-              >
-                Submit Reservation
-              </button>
+                  type="submit"
+                  disabled={loading}
+                  className="w-full bg-yellow-500 text-white font-semibold py-3 rounded-xl hover:bg-yellow-600 transition disabled:bg-yellow-400 disabled:cursor-not-allowed"
+                >
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Processing...
+                    </span>
+                  ) : (
+                    "Submit Reservation Request"
+                  )}
+                </button>
+                <p className="text-sm text-gray-500 mt-2 text-center">
+                  * Required fields
+                </p>
               </div>
             </form>
+             {success && (
+            <div className="mt-6 text-center">
+              <p className={`font-medium ${
+                success.includes("✅") ? "text-green-600" : 
+                success.includes("❌") ? "text-red-600" : "text-yellow-600"
+              }`}>
+                {success}
+              </p>
+            </div>
+          )}
           </div>
         </div>
       </section>

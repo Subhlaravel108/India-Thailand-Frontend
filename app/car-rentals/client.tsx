@@ -4,6 +4,9 @@ import React, { useState } from "react";
 import { Car, Clock, MapPin, ShieldCheck } from "lucide-react";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import axios from "axios";
+import { toast } from "sonner";
+import api from "@/lib/api";
 
 const CarRentalsClient = () => {
   const [formData, setFormData] = useState({
@@ -11,9 +14,10 @@ const CarRentalsClient = () => {
     email: "",
     phone: "",
     pickupLocation: "",
-    dropLocation: "",
+    pickupDate: "",
+    returnDate: "",
     carType: "",
-    date: "",
+    driversRequired: false,
     message: "",
   });
 
@@ -23,11 +27,15 @@ const CarRentalsClient = () => {
 
   // ✅ handle change (clear error on typing)
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
-    setErrors({ ...errors, [e.target.name]: "" });
+    const { name, value, type } = e.target;
+    setFormData({ 
+      ...formData, 
+      [name]: type === 'checkbox' ? (e.target as HTMLInputElement).checked : value 
+    });
+    setErrors({ ...errors, [name]: "" });
   };
 
-  // ✅ basic validation
+  // ✅ basic validation  
   const validate = () => {
     const newErrors: { [key: string]: string } = {};
     if (!formData.name.trim()) newErrors.name = "Name is required.";
@@ -39,10 +47,8 @@ const CarRentalsClient = () => {
       newErrors.phone = "Enter a valid 10-digit phone number.";
     if (!formData.pickupLocation.trim())
       newErrors.pickupLocation = "Pickup location is required.";
-    if (!formData.dropLocation.trim())
-      newErrors.dropLocation = "Drop location is required.";
-    if (!formData.carType.trim()) newErrors.carType = "Car type is required.";
-    if (!formData.date.trim()) newErrors.date = "Pickup date is required.";
+    if (!formData.pickupDate.trim())
+      newErrors.pickupDate = "Pickup date is required.";
 
     return newErrors;
   };
@@ -59,32 +65,43 @@ const CarRentalsClient = () => {
 
     try {
       setLoading(true);
-      const res = await fetch("/api/car-rental", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
-      });
+      const payload = {
+        ...formData,
+        serviceType: "car"
+      };
 
-      if (res.ok) {
+      const res = await api.post('/service', payload);
+      
+      if (res.data.success) {
         setSuccess("✅ Car rental booking request submitted successfully!");
+        toast.success("Car rental booking request submitted successfully!");
         setFormData({
           name: "",
           email: "",
           phone: "",
           pickupLocation: "",
-          dropLocation: "",
+          pickupDate: "",
+          returnDate: "",
           carType: "",
-          date: "",
+          driversRequired: false,
           message: "",
         });
       } else {
         setSuccess("❌ Failed to submit booking request. Try again.");
+        toast.error("Failed to submit booking request. Try again.");
       }
-    } catch (error) {
-      setSuccess("⚠️ Server error occurred. Please try later.");
+    } catch (error: any) {
+      console.error("Submission error:", error);
+      setSuccess(error.response?.data?.message || "⚠️ Server error occurred. Please try later.");
+      toast.error(error.response?.data?.message || "⚠️ Server error occurred. Please try later.");
     } finally {
       setLoading(false);
     }
+  };
+
+  // Get today's date for date input min attribute
+  const getTodayDate = () => {
+    return new Date().toISOString().split('T')[0];
   };
 
   return (
@@ -155,37 +172,122 @@ const CarRentalsClient = () => {
               🚘 Book Your Car Rental
             </h2>
             <form onSubmit={handleSubmit} className="grid md:grid-cols-2 gap-6">
-              {[
-                { name: "name", label: "Full Name", type: "text" },
-                { name: "email", label: "Email", type: "email" },
-                { name: "phone", label: "Phone", type: "tel" },
-                { name: "pickupLocation", label: "Pickup Location", type: "text" },
-                { name: "dropLocation", label: "Drop Location", type: "text" },
-                { name: "date", label: "Pickup Date", type: "date" },
-              ].map((field) => (
-                <div key={field.name}>
-                  <label className="block font-medium mb-1 text-gray-700">
-                    {field.label}
-                  </label>
-                  <input
-                    type={field.type}
-                    name={field.name}
-                    value={(formData as any)[field.name]}
-                    onChange={handleChange}
-                    className={`w-full border ${
-                      errors[field.name]
-                        ? "border-red-500"
-                        : "border-gray-300"
-                    } rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400`}
-                  />
-                  {errors[field.name] && (
-                    <p className="text-red-500 text-sm mt-1">
-                      {errors[field.name]}
-                    </p>
-                  )}
-                </div>
-              ))}
+              {/* Name */}
+              <div>
+                <label className="block font-medium mb-1 text-gray-700">
+                  Full Name *
+                </label>
+                <input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  className={`w-full border ${
+                    errors.name ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400`}
+                  placeholder="Enter your full name"
+                />
+                {errors.name && (
+                  <p className="text-red-500 text-sm mt-1">{errors.name}</p>
+                )}
+              </div>
 
+              {/* Email */}
+              <div>
+                <label className="block font-medium mb-1 text-gray-700">
+                  Email *
+                </label>
+                <input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  className={`w-full border ${
+                    errors.email ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400`}
+                  placeholder="Enter your email"
+                />
+                {errors.email && (
+                  <p className="text-red-500 text-sm mt-1">{errors.email}</p>
+                )}
+              </div>
+
+              {/* Phone */}
+              <div>
+                <label className="block font-medium mb-1 text-gray-700">
+                  Phone *
+                </label>
+                <input
+                  type="tel"
+                  name="phone"
+                  value={formData.phone}
+                  onChange={handleChange}
+                  className={`w-full border ${
+                    errors.phone ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400`}
+                  placeholder="10-digit phone number"
+                />
+                {errors.phone && (
+                  <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+                )}
+              </div>
+
+              {/* Pickup Location */}
+              <div>
+                <label className="block font-medium mb-1 text-gray-700">
+                  Pickup Location *
+                </label>
+                <input
+                  type="text"
+                  name="pickupLocation"
+                  value={formData.pickupLocation}
+                  onChange={handleChange}
+                  className={`w-full border ${
+                    errors.pickupLocation ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400`}
+                  placeholder="Where should we pick you up?"
+                />
+                {errors.pickupLocation && (
+                  <p className="text-red-500 text-sm mt-1">{errors.pickupLocation}</p>
+                )}
+              </div>
+
+              {/* Pickup Date */}
+              <div>
+                <label className="block font-medium mb-1 text-gray-700">
+                  Pickup Date & Time *
+                </label>
+                <input
+                  type="datetime-local"
+                  name="pickupDate"
+                  value={formData.pickupDate}
+                  onChange={handleChange}
+                  min={getTodayDate() + "T00:00"}
+                  className={`w-full border ${
+                    errors.pickupDate ? "border-red-500" : "border-gray-300"
+                  } rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400`}
+                />
+                {errors.pickupDate && (
+                  <p className="text-red-500 text-sm mt-1">{errors.pickupDate}</p>
+                )}
+              </div>
+
+              {/* Return Date */}
+              <div>
+                <label className="block font-medium mb-1 text-gray-700">
+                  Return Date & Time
+                </label>
+                <input
+                  type="datetime-local"
+                  name="returnDate"
+                  value={formData.returnDate}
+                  onChange={handleChange}
+                  min={formData.pickupDate || getTodayDate() + "T00:00"}
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400"
+                />
+              </div>
+
+              {/* Car Type */}
               <div>
                 <label className="block font-medium mb-1 text-gray-700">
                   Car Type
@@ -194,24 +296,35 @@ const CarRentalsClient = () => {
                   name="carType"
                   value={formData.carType}
                   onChange={handleChange}
-                  className={`w-full border ${
-                    errors.carType ? "border-red-500" : "border-gray-300"
-                  } rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400`}
+                  className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400"
                 >
                   <option value="">Select Car Type</option>
-                  <option value="Economy">Economy</option>
-                  <option value="SUV">SUV</option>
-                  <option value="Luxury">Luxury</option>
-                  <option value="Tempo Traveler">Tempo Traveler</option>
+                  <option value="Economy">Economy (Maruti Swift, Hyundai i10)</option>
+                  <option value="Sedan">Sedan (Honda City, Toyota Corolla)</option>
+                  <option value="SUV">SUV (Toyota Fortuner, Hyundai Creta)</option>
+                  <option value="Luxury">Luxury (Mercedes, BMW, Audi)</option>
+                  <option value="Tempo Traveler">Tempo Traveler (12-15 seater)</option>
                 </select>
-                {errors.carType && (
-                  <p className="text-red-500 text-sm mt-1">{errors.carType}</p>
-                )}
               </div>
 
+              {/* Drivers Required */}
+              <div className="flex items-center">
+                <input
+                  type="checkbox"
+                  name="driversRequired"
+                  checked={formData.driversRequired}
+                  onChange={handleChange}
+                  className="w-4 h-4 text-orange-600 border-gray-300 rounded focus:ring-orange-500"
+                />
+                <label className="ml-2 block font-medium text-gray-700">
+                  I need a professional driver
+                </label>
+              </div>
+
+              {/* Message - Full Width */}
               <div className="md:col-span-2">
                 <label className="block font-medium mb-1 text-gray-700">
-                  Additional Message
+                  Additional Requirements
                 </label>
                 <textarea
                   name="message"
@@ -219,23 +332,37 @@ const CarRentalsClient = () => {
                   onChange={handleChange}
                   rows={3}
                   className="w-full border border-gray-300 rounded-lg p-3 focus:outline-none focus:ring-2 focus:ring-orange-400"
-                  placeholder="Any special requirements or notes..."
+                  placeholder="Any special requirements, luggage details, child seats, or additional notes..."
                 />
               </div>
 
+              {/* Submit Button - Full Width */}
               <div className="md:col-span-2 text-center">
                 <button
                   type="submit"
                   disabled={loading}
-                  className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition"
+                  className="bg-orange-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-orange-700 transition disabled:bg-orange-400 disabled:cursor-not-allowed"
                 >
-                  {loading ? "Submitting..." : "Submit Booking"}
+                  {loading ? (
+                    <span className="flex items-center justify-center">
+                      <div className="w-5 h-5 border-2 border-white border-t-transparent rounded-full animate-spin mr-2"></div>
+                      Processing...
+                    </span>
+                  ) : (
+                    "Submit Booking Request"
+                  )}
                 </button>
+                <p className="text-sm text-gray-500 mt-2">
+                  * Required fields
+                </p>
               </div>
             </form>
 
             {success && (
-              <p className="text-center mt-6 text-green-600 font-medium">
+              <p className={`text-center mt-6 font-medium ${
+                success.includes("✅") ? "text-green-600" : 
+                success.includes("❌") ? "text-red-600" : "text-yellow-600"
+              }`}>
                 {success}
               </p>
             )}
