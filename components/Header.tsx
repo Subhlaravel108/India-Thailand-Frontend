@@ -1,7 +1,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, MapPin, Phone, Mail } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
@@ -10,10 +10,27 @@ import { contactInfo } from "@/lib/global_variables";
 
 const Header = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
   const pathname = usePathname();
 
   const isActive = (path: string) => pathname === path;
 
+    useEffect(() => {
+    const token = localStorage.getItem("token"); // OR cookie se get karo
+    if (token) {
+      setIsLoggedIn(true);
+    } else {
+      setIsLoggedIn(false);
+    }
+  }, []);
+
+   const handleLogout = () => {
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+    localStorage.removeItem("isAuthenticated");
+    localStorage.removeItem("role");
+    setIsLoggedIn(false);
+  };
   return (
     <header className="bg-white shadow-sm relative z-50">
       {/* Top contact bar */}
@@ -93,11 +110,38 @@ const Header = () => {
             >
               Contact
             </Link>
-            <Link href="/book-now">
-              <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full">
-                Book Now
+            
+                 {isLoggedIn && (
+              <Link href="/book-now">
+                <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full">
+                  Book Now
+                </Button>
+              </Link>
+            )}
+
+             {!isLoggedIn && (
+              <>
+                <Link href="/register">
+                  <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
+                    Register
+                  </Button>
+                </Link>
+
+                <Link href="/login">
+                  <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
+                    Login
+                  </Button>
+                </Link>
+              </>
+            )}
+               {isLoggedIn && (
+              <Button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg"
+              >
+                Logout
               </Button>
-            </Link>
+            )}
           </div>
 
           {/* Mobile menu button */}
@@ -141,6 +185,15 @@ const Header = () => {
                 Packages
               </Link>
               <Link 
+                href="/blog" 
+                className={`transition-colors font-medium ${
+                  isActive('/blog') ? 'text-blue-900' : 'text-gray-700 hover:text-blue-900'
+                }`}
+                onClick={() => setIsMenuOpen(false)}
+              >
+                Blog
+              </Link>
+              <Link 
                 href="/about" 
                 className={`transition-colors font-medium ${
                   isActive('/about') ? 'text-blue-900' : 'text-gray-700 hover:text-blue-900'
@@ -158,11 +211,36 @@ const Header = () => {
               >
                 Contact
               </Link>
-              <Link href="/book-now" onClick={() => setIsMenuOpen(false)}>
+             {isLoggedIn && <Link href="/book-now" onClick={() => setIsMenuOpen(false)}>
                 <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full w-fit">
                   Book Now
                 </Button>
+              </Link>}
+            {!isLoggedIn &&  ( 
+              <>
+              
+              <Link href="/register" onClick={() => setIsMenuOpen(false)}>
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full w-fit">
+                  Register
+                </Button>
               </Link>
+              <Link href="/login" onClick={() => setIsMenuOpen(false)}>
+                <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-full w-fit">
+                  Login
+                </Button>
+              </Link>
+              </>
+              )
+
+            }
+              {isLoggedIn && (
+              <Button
+                onClick={handleLogout}
+                className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg w-fit"
+              >
+                Logout
+              </Button>
+            )}
             </div>
           </div>
         )}

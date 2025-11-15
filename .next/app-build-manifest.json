@@ -1,9 +1,9 @@
 {
   "pages": {
-    "/car-rentals/page": [
+    "/register/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/car-rentals/page.js"
+      "static/chunks/app/register/page.js"
     ],
     "/layout": [
       "static/chunks/webpack.js",
@@ -16,20 +16,40 @@
       "static/chunks/main-app.js",
       "static/chunks/app/not-found.js"
     ],
-    "/flight-booking/page": [
+    "/_not-found/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/flight-booking/page.js"
+      "static/chunks/app/_not-found/page.js"
     ],
-    "/hotel-reservations/page": [
+    "/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/hotel-reservations/page.js"
+      "static/chunks/app/page.js"
     ],
-    "/custom-tours/page": [
+    "/login/page": [
       "static/chunks/webpack.js",
       "static/chunks/main-app.js",
-      "static/chunks/app/custom-tours/page.js"
+      "static/chunks/app/login/page.js"
+    ],
+    "/forgot-password/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/forgot-password/page.js"
+    ],
+    "/packages/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/packages/page.js"
+    ],
+    "/destinations/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/destinations/page.js"
+    ],
+    "/destinations/[slug]/page": [
+      "static/chunks/webpack.js",
+      "static/chunks/main-app.js",
+      "static/chunks/app/destinations/[slug]/page.js"
     ]
   }
 }

@@ -1,5 +1,8 @@
 {
-  "/flight-booking/page": "app/flight-booking/page.js",
-  "/hotel-reservations/page": "app/hotel-reservations/page.js",
-  "/custom-tours/page": "app/custom-tours/page.js"
+  "/page": "app/page.js",
+  "/forgot-password/page": "app/forgot-password/page.js",
+  "/packages/page": "app/packages/page.js",
+  "/destinations/page": "app/destinations/page.js",
+  "/destinations/[slug]/page": "app/destinations/[slug]/page.js",
+  "/login/page": "app/login/page.js"
 }
