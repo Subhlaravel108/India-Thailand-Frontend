@@ -24,10 +24,10 @@ export default function CookiePolicy() {
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             How {contactInfo.websiteName} uses cookies to enhance your travel booking experience
           </p>
-          <div className="flex items-center justify-center mt-4 text-sm text-amber-600">
+          {/* <div className="flex items-center justify-center mt-4 text-sm text-amber-600">
             <Clock className="w-4 h-4 mr-2" />
             Last updated: <span className="font-medium ml-1">November 12, 2025</span>
-          </div>
+          </div> */}
         </div>
 
         <Card className="shadow-xl border-0 rounded-2xl overflow-hidden bg-white/80 backdrop-blur-sm">

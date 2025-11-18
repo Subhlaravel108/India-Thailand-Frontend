@@ -21,10 +21,10 @@ export default function TermsOfService() {
           <p className="text-gray-600 text-lg max-w-2xl mx-auto">
             Welcome to {contactInfo.websiteName}. By using our services, you agree to these terms. Please read them carefully.
           </p>
-          <div className="flex items-center justify-center mt-4 text-sm text-orange-600">
+          {/* <div className="flex items-center justify-center mt-4 text-sm text-orange-600">
             <AlertTriangle className="w-4 h-4 mr-2" />
             Last updated: <span className="font-medium ml-1">November 12, 2025</span>
-          </div>
+          </div> */}
         </div>
 
         <Card className="shadow-lg border-0 rounded-2xl overflow-hidden">

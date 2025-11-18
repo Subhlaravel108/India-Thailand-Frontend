@@ -1,8 +1,1 @@
-{
-  "/page": "app/page.js",
-  "/forgot-password/page": "app/forgot-password/page.js",
-  "/packages/page": "app/packages/page.js",
-  "/destinations/page": "app/destinations/page.js",
-  "/destinations/[slug]/page": "app/destinations/[slug]/page.js",
-  "/login/page": "app/login/page.js"
-}
+{}
