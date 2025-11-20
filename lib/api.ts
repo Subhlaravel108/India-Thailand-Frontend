@@ -87,3 +87,14 @@ export const fetchAllBlog=async({page=1,search=""}={})=>{
     })
     return response.data
 }
+
+export const uploadImage = async (file: File) => {
+  const formData = new FormData();
+  formData.append("image", file);
+  // const token = JSON.parse(localStorage.getItem("user") || "{}")?.token || "";
+  const res = await api.post(
+    "/upload-image",
+    formData,
+      );
+  return res.data.imageUrl || res.data.path || res.data.data?.url;
+};

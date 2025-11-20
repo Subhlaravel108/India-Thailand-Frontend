@@ -26,7 +26,7 @@ const Hero = () => {
           </p>
 
           {/* Search Bar */}
-          <div className="bg-white rounded-2xl p-6 shadow-2xl max-w-4xl mx-auto mb-8 animate-scale-in">
+          {/* <div className="bg-white rounded-2xl p-6 shadow-2xl max-w-4xl mx-auto mb-8 animate-scale-in">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
               <div className="relative">
                 <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
@@ -56,25 +56,25 @@ const Hero = () => {
                 Search
               </Button>
             </div>
-          </div>
+          </div> */}
 
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
+          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg rounded-full">
               Explore Destinations
             </Button>
             <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg rounded-full">
               Watch Video
             </Button>
-          </div>
+          </div> */}
         </div>
       </div>
 
       {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
+      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
         <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
           <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
         </div>
-      </div>
+      </div> */}
     </section>
   );
 };

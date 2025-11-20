@@ -41,9 +41,9 @@ export default function BlogClient({ slug }: BlogClientProps) {
       try {
         setLoading(true);
         setError(null);
-        console.log("Fetching blog with slug:", slug);
+        // console.log("Fetching blog with slug:", slug);
 
-        const res = await axios.get(`http://127.0.0.1:3001/api/front/blog/${slug}`);
+        const res = await api.get(`/front/blog/${slug}`);
 
         if (res.data?.success && res.data?.data) {
           setBlog(res.data.data);

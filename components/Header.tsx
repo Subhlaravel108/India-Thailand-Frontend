@@ -34,7 +34,7 @@ const Header = () => {
   return (
     <header className="bg-white shadow-sm relative z-50">
       {/* Top contact bar */}
-      <div className="bg-blue-900 text-white py-2 px-4">
+      <div className="bg-blue-900 text-white py-2 px-4 hidden lg:block">
         <div className="container mx-auto flex justify-between items-center text-sm">
           <div className="flex items-center space-x-6">
             <div className="flex items-center space-x-2">
@@ -111,15 +111,15 @@ const Header = () => {
               Contact
             </Link>
             
-                 {isLoggedIn && (
+                 {/* {isLoggedIn && ( */}
               <Link href="/book-now">
                 <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full">
                   Book Now
                 </Button>
               </Link>
-            )}
+            {/* )} */}
 
-             {!isLoggedIn && (
+             {/* {!isLoggedIn && (
               <>
                 <Link href="/register">
                   <Button className="bg-blue-500 hover:bg-blue-600 text-white px-6 py-2 rounded-lg">
@@ -141,7 +141,7 @@ const Header = () => {
               >
                 Logout
               </Button>
-            )}
+            )} */}
           </div>
 
           {/* Mobile menu button */}
@@ -211,12 +211,14 @@ const Header = () => {
               >
                 Contact
               </Link>
-             {isLoggedIn && <Link href="/book-now" onClick={() => setIsMenuOpen(false)}>
+             {/* {isLoggedIn &&  */}
+             <Link href="/book-now" onClick={() => setIsMenuOpen(false)}>
                 <Button className="bg-orange-500 hover:bg-orange-600 text-white px-6 py-2 rounded-full w-fit">
                   Book Now
                 </Button>
-              </Link>}
-            {!isLoggedIn &&  ( 
+              </Link>
+              {/* } */}
+            {/* {!isLoggedIn &&  ( 
               <>
               
               <Link href="/register" onClick={() => setIsMenuOpen(false)}>
@@ -232,15 +234,15 @@ const Header = () => {
               </>
               )
 
-            }
-              {isLoggedIn && (
+            } */}
+              {/* {isLoggedIn && (
               <Button
                 onClick={handleLogout}
                 className="bg-red-500 hover:bg-red-600 text-white px-6 py-2 rounded-lg w-fit"
               >
                 Logout
               </Button>
-            )}
+            )} */}
             </div>
           </div>
         )}
