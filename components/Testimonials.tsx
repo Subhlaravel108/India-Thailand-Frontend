@@ -114,12 +114,12 @@ const Testimonials = () => {
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-8 max-w-6xl mx-auto">
                     {loading ? (
                         // Show skeleton loaders
-                        [...Array(4)].map((_, index) => (
+                        [...Array(2)].map((_, index) => (
                             <TestimonialSkeleton key={index} />
                         ))
                     ) : feedback.length > 0 ? (
                         // Show actual testimonials
-                        feedback.slice(0, 4).map((testimonial: any) => (
+                        feedback.slice(0, 2).map((testimonial: any) => (
                             <div
                                 key={testimonial._id}
                                 className="bg-white/10 backdrop-blur-sm rounded-2xl p-8 hover:bg-white/20 transition-all duration-300 hover:transform hover:scale-105"
@@ -230,7 +230,7 @@ const Testimonials = () => {
                     )}
                 </div>
 
-                {!loading && feedback.length > 4 && (
+                {!loading && feedback.length > 2 && (
                     <div className="text-center mt-8">
                         <p className="text-blue-200">
                             And many more happy travelers... ✈️
