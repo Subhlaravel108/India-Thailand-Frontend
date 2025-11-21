@@ -38,6 +38,8 @@ const FeedbackForm = () => {
     image: "" as string, // Changed to string for URL
   });
 
+  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
