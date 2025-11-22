@@ -54,11 +54,11 @@ const Header = () => {
       </div>
 
       {/* Main navigation */}
-      <nav className="container mx-auto px-4 py-3">
+      <nav className="container mx-auto px-4 ">
         <div className="flex justify-between items-center">
           <Link href="/">
             {/* {contactInfo.websiteName}<span className="text-orange-500"></span> */}
-            <img src="/logo.png" className="h-12 w-24 hover:scale-105 duration-300"/>
+            <img src="/tour-logo.png" className="h-16 w-32 bg-transparent  duration-300"/>
           </Link>
 
           {/* Desktop Navigation */}
