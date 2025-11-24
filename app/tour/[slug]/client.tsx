@@ -21,17 +21,22 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { fetchTourDetails } from "@/lib/api";
 import { Skeleton } from "components/ui/skeleton"; // ✅ shadcn Skeleton component
+import axios from "axios";
 
 const TourDetail = () => {
   const { slug } = useParams();
   const [tour, setTour] = useState<any>(null);
   const [loading, setLoading] = useState(true);
+  const [destinations, setDestinations] = useState<any>();
+  const [loadingDestinations, setLoadingDestinations] = useState(false);
+
 
   const loadTour = async () => {
     try {
       const res = await fetchTourDetails(String(slug));
       if (res.success) {
         setTour(res.data);
+        console.log("Tour data:", res.data);
       }
     } catch (err) {
       console.error("Error loading tour:", err);
@@ -40,9 +45,45 @@ const TourDetail = () => {
     }
   };
 
+ const loadDestinations = async () => {
+  if (!tour?.destinationIds || tour.destinationIds.length === 0) return;
+
+  try {
+    setLoadingDestinations(true);
+
+    const res = await axios.post("http://127.0.0.1:3001/api/front/destinations-by-ids", {
+      ids: tour.destinationIds,
+    });
+
+    if (res.data.success) {
+      setDestinations(res.data.data);
+    }
+  } catch (error) {
+    console.error("Error loading destinations:", error);
+  } finally {
+    setLoadingDestinations(false);
+  }
+};
+
+
+
+    const formatPrice = (price: number) => {
+    return new Intl.NumberFormat('en-IN', {
+      style: 'currency',
+      currency: 'INR',
+      maximumFractionDigits: 0
+    }).format(price);
+  };
+
   useEffect(() => {
     loadTour();
   }, []);
+
+  useEffect(() => {
+    if(tour) {
+      loadDestinations();
+    }
+  }, [tour]);
 
   return (
     <div className="min-h-screen bg-background">
@@ -205,6 +246,48 @@ const TourDetail = () => {
                       </CardContent>
                     </Card>
                   </TabsContent>
+               <TabsContent value="places">
+  <h3 className="text-2xl font-bold mb-6">Places Covered</h3>
+
+  {loadingDestinations ? (
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {Array.from({ length: 3 }).map((_, i) => (
+        <Skeleton key={i} className="h-56 w-full rounded-lg" />
+      ))}
+    </div>
+  ) : (
+    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+      {destinations?.map((place:any) => (
+        <Card key={place._id} className="overflow-hidden shadow-md rounded-lg">
+          
+          <div className="w-full h-40 overflow-hidden">
+            <img
+              src={place.featured_image}
+              alt={place.title}
+              className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+            />
+          </div>
+
+          <CardContent className="p-4">
+            <h4 className="text-xl font-semibold">{place.title}</h4>
+            <p className="text-muted-foreground mt-2 line-clamp-3">
+              {parse(place.short_description)}
+            </p>
+            {/* <Button asChild className="w-full mt-4">
+              <Link href={`/destinations/${place.slug}`}>
+                View Destination
+              </Link> */}
+            {/* </Button> */}
+          </CardContent>
+
+        </Card>
+      ))}
+    </div>
+  )}
+</TabsContent>
+
+
+
                 </Tabs>
               </div>
 
@@ -215,12 +298,12 @@ const TourDetail = () => {
                     <div className="mb-6">
                       <div className="flex items-baseline gap-2 mb-2">
                         <span className="text-4xl font-bold text-primary">
-                          ${tour.price}
+                          {formatPrice(tour.price)}
                         </span>
                       </div>
-                      <p className="text-sm text-muted-foreground">
+                      {/* <p className="text-sm text-muted-foreground">
                         Per person (based on double occupancy)
-                      </p>
+                      </p> */}
                     </div>
 
                     <div className="space-y-4 mb-6">

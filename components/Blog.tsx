@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { useEffect, useState } from "react";
 import api from "@/lib/api";
-
+import { format, parseISO } from "date-fns";
 interface BlogType {
   _id: string;
   title: string;
@@ -117,7 +117,7 @@ const Blog = () => {
                   <div className="text-sm text-muted-foreground mb-3 flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
-                      <span>{post.published_at}</span>
+                      <span>{format(parseISO(post.published_at), 'dd MMM YYY')}</span>
                     </div>
 
                     {post.author && (

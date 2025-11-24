@@ -363,7 +363,7 @@ const ToursListingPage = () => {
                             <span className="text-2xl font-bold text-blue-600">
                               {formatPrice(tour.price)}
                             </span>
-                            <span className="text-sm text-gray-500">per person</span>
+                            {/* <span className="text-sm text-gray-500">per person</span> */}
                           </div>
                         </div>
                       )}
