@@ -89,7 +89,7 @@ const AboutPage = () => {
                 Our Story
               </h2>
               <p className="text-lg text-gray-600 mb-6">
-                Founded in 1998, TravelCo began as a small family business with a simple mission: 
+                Founded in 1998, Jaipur-Thailand began as a small family business with a simple mission: 
                 to make travel accessible, safe, and extraordinary for everyone. What started as a 
                 local travel agency has grown into a globally recognized brand.
               </p>
