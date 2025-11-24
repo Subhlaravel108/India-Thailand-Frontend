@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import { fetchTourDetails } from "@/lib/api";
+import api, { fetchTourDetails } from "@/lib/api";
 import { Skeleton } from "components/ui/skeleton"; // ✅ shadcn Skeleton component
 import axios from "axios";
 
@@ -51,7 +51,7 @@ const TourDetail = () => {
   try {
     setLoadingDestinations(true);
 
-    const res = await axios.post("http://127.0.0.1:3001/api/front/destinations-by-ids", {
+    const res = await api.post("/front/destinations-by-ids", {
       ids: tour.destinationIds,
     });
 
