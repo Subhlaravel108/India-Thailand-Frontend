@@ -4,6 +4,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Users, Award, Globe, Heart, Shield, Clock } from "lucide-react";
+import { contactInfo } from "@/lib/global_variables";
 
 const AboutPage = () => {
   const stats = [
@@ -71,7 +72,7 @@ const AboutPage = () => {
       <section className="relative py-20 bg-gradient-to-r from-blue-900 to-blue-700">
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
-            About TravelCo
+            About {contactInfo.websiteName}
           </h1>
           <p className="text-xl md:text-2xl mb-8 opacity-90 max-w-3xl mx-auto">
             Creating unforgettable travel experiences for over 25 years

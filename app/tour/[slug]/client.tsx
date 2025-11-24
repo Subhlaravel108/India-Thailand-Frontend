@@ -45,29 +45,29 @@ const TourDetail = () => {
     }
   };
 
- const loadDestinations = async () => {
-  if (!tour?.destinationIds || tour.destinationIds.length === 0) return;
+  const loadDestinations = async () => {
+    if (!tour?.destinationIds || tour.destinationIds.length === 0) return;
 
-  try {
-    setLoadingDestinations(true);
+    try {
+      setLoadingDestinations(true);
 
-    const res = await api.post("/front/destinations-by-ids", {
-      ids: tour.destinationIds,
-    });
+      const res = await api.post("/front/destinations-by-ids", {
+        ids: tour.destinationIds,
+      });
 
-    if (res.data.success) {
-      setDestinations(res.data.data);
+      if (res.data.success) {
+        setDestinations(res.data.data);
+      }
+    } catch (error) {
+      console.error("Error loading destinations:", error);
+    } finally {
+      setLoadingDestinations(false);
     }
-  } catch (error) {
-    console.error("Error loading destinations:", error);
-  } finally {
-    setLoadingDestinations(false);
-  }
-};
+  };
 
 
 
-    const formatPrice = (price: number) => {
+  const formatPrice = (price: number) => {
     return new Intl.NumberFormat('en-IN', {
       style: 'currency',
       currency: 'INR',
@@ -80,7 +80,7 @@ const TourDetail = () => {
   }, []);
 
   useEffect(() => {
-    if(tour) {
+    if (tour) {
       loadDestinations();
     }
   }, [tour]);
@@ -229,10 +229,12 @@ const TourDetail = () => {
                   </TabsContent>
 
                   <TabsContent value="included">
+                    {/* Included Section */}
                     <h3 className="text-2xl font-bold mb-4 flex items-center gap-2">
                       <Check className="w-6 h-6 text-green-600" />
                       What's Included
                     </h3>
+
                     <Card>
                       <CardContent className="p-6">
                         <ul className="space-y-2">
@@ -245,46 +247,67 @@ const TourDetail = () => {
                         </ul>
                       </CardContent>
                     </Card>
+
+                    {/* Not Included Section */}
+                    <h3 className="text-2xl font-bold mb-4 flex items-center gap-2 mt-6">
+                      <X className="w-6 h-6 text-red-600" />
+                      What's Not Included
+                    </h3>
+
+                    <Card>
+                      <CardContent className="p-6">
+                        <ul className="space-y-2">
+                          {tour.notIncluded?.map((item: string, i: number) => (
+                            <li key={i} className="flex gap-3 text-sm">
+                              <X className="w-5 h-5 text-red-600 mt-0.5" />
+                              {item}
+                            </li>
+                          ))}
+                        </ul>
+                      </CardContent>
+                    </Card>
                   </TabsContent>
-               <TabsContent value="places">
-  <h3 className="text-2xl font-bold mb-6">Places Covered</h3>
 
-  {loadingDestinations ? (
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {Array.from({ length: 3 }).map((_, i) => (
-        <Skeleton key={i} className="h-56 w-full rounded-lg" />
-      ))}
-    </div>
-  ) : (
-    <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
-      {destinations?.map((place:any) => (
-        <Card key={place._id} className="overflow-hidden shadow-md rounded-lg">
-          
-          <div className="w-full h-40 overflow-hidden">
-            <img
-              src={place.featured_image}
-              alt={place.title}
-              className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
-            />
-          </div>
 
-          <CardContent className="p-4">
-            <h4 className="text-xl font-semibold">{place.title}</h4>
-            <p className="text-muted-foreground mt-2 line-clamp-3">
-              {parse(place.short_description)}
-            </p>
-            {/* <Button asChild className="w-full mt-4">
+                  <TabsContent value="places">
+                    <h3 className="text-2xl font-bold mb-6">Places Covered</h3>
+
+                    {loadingDestinations ? (
+                      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {Array.from({ length: 3 }).map((_, i) => (
+                          <Skeleton key={i} className="h-56 w-full rounded-lg" />
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="grid sm:grid-cols-2 md:grid-cols-3 gap-6">
+                        {destinations?.map((place: any) => (
+                          <Card key={place._id} className="overflow-hidden shadow-md rounded-lg">
+
+                            <div className="w-full h-40 overflow-hidden">
+                              <img
+                                src={place.featured_image}
+                                alt={place.title}
+                                className="w-full h-full object-cover transition-transform duration-300 hover:scale-110"
+                              />
+                            </div>
+
+                            <CardContent className="p-4">
+                              <h4 className="text-xl font-semibold">{place.title}</h4>
+                              <p className="text-muted-foreground mt-2 line-clamp-3">
+                                {parse(place.short_description)}
+                              </p>
+                              {/* <Button asChild className="w-full mt-4">
               <Link href={`/destinations/${place.slug}`}>
                 View Destination
               </Link> */}
-            {/* </Button> */}
-          </CardContent>
+                              {/* </Button> */}
+                            </CardContent>
 
-        </Card>
-      ))}
-    </div>
-  )}
-</TabsContent>
+                          </Card>
+                        ))}
+                      </div>
+                    )}
+                  </TabsContent>
 
 
 
