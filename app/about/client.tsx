@@ -87,7 +87,7 @@ const AboutPage = () => {
             <div>
               <h2 className="text-3xl md:text-4xl font-bold text-gray-800 mb-6">
                 Our Story
-              </h2>
+              </h2>  
               <p className="text-lg text-gray-600 mb-6">
                 Founded in 1998, Jaipur-Thailand began as a small family business with a simple mission: 
                 to make travel accessible, safe, and extraordinary for everyone. What started as a 

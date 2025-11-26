@@ -1,80 +1,136 @@
-"use client"
+// "use client";
+// import { Search, Calendar, Users, MapPin } from "lucide-react";
+// import { Button } from "@/components/ui/button";
+// import { Input } from "@/components/ui/input";
+// import { useEffect, useState } from "react";
+
+// const Hero = () => {
+//   const [randomImage, setRandomImage] = useState("");
+
+//   useEffect(() => {
+//     const images = [
+//       "/hero-banners/banner1.jpg",
+//       "/hero-banners/banner2.jpg",
+//       "/hero-banners/banner3.jpg",
+//       "/hero-banners/banner4.jpg",
+//       "/hero-banners/banner5.jpg",
+//     ];
+
+//     const randomIndex = Math.floor(Math.random() * images.length);
+//     setRandomImage(images[randomIndex]);
+//   }, []);
+
+//   return (
+//     <section className="relative min-h-[40vh] py-5 lg:py-0 md:min-h-screen flex items-center justify-center">
+//       {/* Background Image */}
+//       <div
+//         className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700"
+//         style={{
+//           backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${randomImage}')`,
+//         }}
+//       />
+
+//       {/* Content */}
+//       <div className="relative z-10 container mx-auto px-4 text-center text-white">
+//         <div className="max-w-4xl mx-auto">
+//           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-6 leading-tight">
+//             Discover Your Next
+//             <span className="block text-orange-500 mt-1">Adventure</span>
+//           </h1>
+
+//           <p className="text-sm sm:text-xl md:text-2xl mb-8 opacity-90">
+//             Explore breathtaking destinations around the world with our expertly crafted travel experiences
+//           </p>
+
+//           {/* Button Section */}
+//           <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
+//             <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg rounded-full w-[220px]">
+//               Explore Destinations
+//             </Button>
+
+//             <Button
+//               size="lg"
+//               variant="outline"
+//               className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg rounded-full"
+//             >
+//               Watch Video
+//             </Button>
+//           </div>
+//         </div>
+//       </div>
+//     </section>
+//   );
+// };
+
+// export default Hero;
+
+"use client";
 import { Search, Calendar, Users, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { useEffect, useState } from "react";
 
 const Hero = () => {
+  const [randomImage, setRandomImage] = useState("");
+
+  useEffect(() => {
+    const images = [
+      "/hero-banners/banner1.jpg",
+      "/hero-banners/banner2.jpg",
+      "/hero-banners/banner3.jpg",
+      "/hero-banners/banner4.jpg",
+      "/hero-banners/banner5.jpg",
+    ];
+
+    const randomIndex = Math.floor(Math.random() * images.length);
+    setRandomImage(images[randomIndex]);
+  }, []);
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center">
+    <section className="relative min-h-[50vh] sm:min-h-[60vh] md:min-h-[70vh] lg:min-h-screen flex items-center justify-center py-8 sm:py-12 md:py-16 lg:py-0">
       {/* Background Image */}
-      <div 
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat"
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat transition-all duration-700"
         style={{
-          backgroundImage: `linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)), url('https://images.unsplash.com/photo-1472396961693-142e6e269027?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80')`
+          backgroundImage: `linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('${randomImage}')`,
         }}
       />
-      
+
       {/* Content */}
-      <div className="relative z-10 container mx-auto px-4 text-center text-white">
+      <div className="relative z-10 container mx-auto px-3 sm:px-4 md:px-6 text-center text-white">
         <div className="max-w-4xl mx-auto">
-          <h1 className="text-5xl md:text-7xl font-bold mb-6 animate-fade-in">
+          {/* Heading */}
+          <h1 className="text-2xl xs:text-3xl sm:text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-extrabold mb-4 sm:mb-6 leading-tight">
             Discover Your Next
-            <span className="block text-orange-500">Adventure</span>
+            <span className="block text-orange-500 mt-1 sm:mt-2">Adventure</span>
           </h1>
-          <p className="text-xl md:text-2xl mb-8 opacity-90 animate-fade-in">
+
+          {/* Subtitle */}
+          <p className="text-xs xs:text-sm sm:text-lg md:text-xl lg:text-2xl mb-6 sm:mb-8 opacity-90 px-2 sm:px-0 leading-relaxed">
             Explore breathtaking destinations around the world with our expertly crafted travel experiences
           </p>
 
-          {/* Search Bar */}
-          {/* <div className="bg-white rounded-2xl p-6 shadow-2xl max-w-4xl mx-auto mb-8 animate-scale-in">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-              <div className="relative">
-                <MapPin className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                <Input 
-                  placeholder="Where to?" 
-                  className="pl-10 h-12 border-0 text-gray-700 placeholder-gray-500"
-                />
-              </div>
-              <div className="relative">
-                <Calendar className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                <Input 
-                  type="date" 
-                  className="pl-10 h-12 border-0 text-gray-700"
-                />
-              </div>
-              <div className="relative">
-                <Users className="absolute left-3 top-3 w-5 h-5 text-gray-400" />
-                <select className="w-full h-12 pl-10 pr-4 rounded-md border-0 text-gray-700 bg-transparent">
-                  <option>2 Guests</option>
-                  <option>1 Guest</option>
-                  <option>3 Guests</option>
-                  <option>4+ Guests</option>
-                </select>
-              </div>
-              <Button className="h-12 bg-blue-900 hover:bg-blue-800 text-white rounded-md">
-                <Search className="w-5 h-5 mr-2" />
-                Search
-              </Button>
-            </div>
-          </div> */}
-
-          {/* <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Button size="lg" className="bg-orange-500 hover:bg-orange-600 text-white px-8 py-4 text-lg rounded-full">
+          {/* Button Section */}
+          {/* flex flex-col sm:flex-row gap-4 justify-center items-center */}
+          <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center px-2 sm:px-0">
+            <Button 
+              size="lg" 
+              className="bg-orange-500 hover:bg-orange-600 text-white px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg rounded-full  xs:w-auto min-w-[160px] sm:min-w-[220px] transition-all duration-300 transform hover:scale-105"
+            >
               Explore Destinations
             </Button>
-            <Button size="lg" variant="outline" className="border-white text-white hover:bg-white hover:text-gray-900 px-8 py-4 text-lg rounded-full">
+
+            <Button
+              size="lg"
+              variant="outline"
+              className="border-2 border-white text-black hover:bg-white hover:text-gray-900 px-6 sm:px-8 py-3 sm:py-4 text-sm sm:text-base md:text-lg rounded-full  xs:w-auto min-w-[160px] sm:min-w-[180px] transition-all duration-300"
+            >
               Watch Video
             </Button>
-          </div> */}
+          </div>
+
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      {/* <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 animate-bounce">
-        <div className="w-6 h-10 border-2 border-white rounded-full flex justify-center">
-          <div className="w-1 h-3 bg-white rounded-full mt-2 animate-pulse"></div>
-        </div>
-      </div> */}
     </section>
   );
 };

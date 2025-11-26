@@ -7,12 +7,12 @@ const api=axios.create({
 export default api
 
 
-export const fetchDestinations=async({page=1,search=""}={})=>{
+export const fetchDestinations=async({page=1,search="",limit=0}={})=>{
     const response=await api.get("/front/destinations",{
         params:{
             page,
             search:search || undefined,
-            
+            limit:limit || undefined,
         }
     })
     return response.data

@@ -39,18 +39,15 @@ const Packages = () => {
   const [packages,setPackages]=useState<any[]>([])
   const [loading,setLoading]=useState(true)
   const [error, setError] = useState<string | null>(null);
-   const loadPackages = async (search = "", pageNum = 1) => {
-      setLoading(true);
+   const loadPackages = async () => {
+      // setLoading(true);
       try {
-        const res = await fetchTourPackages();
-        if (res.success) {
-          setPackages(res.data || []);
-          
-         
-        } else {
-          setPackages([]);
-          setError(res.message || "Failed to fetch packages");
-        }
+        const res = await fetch("/data/packages.json");
+        if (!res.ok) throw new Error("Failed to load packages");
+         const data= await res.json();
+        
+          setPackages(data || []);
+          setError(null);
       } catch (e) {
         setError("Failed to load packages");
         console.error(e);

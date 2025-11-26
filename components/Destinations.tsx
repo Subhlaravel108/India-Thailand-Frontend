@@ -1,10 +1,9 @@
-"use client"
+"use client";
 import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
-import { fetchDestinations } from "@/lib/api";
 import Link from "next/link";
- 
+
 // Type definition
 interface Destination {
   _id: string;
@@ -20,16 +19,20 @@ const Destinations = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  // Load Destinations
+  // Load Destinations from static JSON
   const loadDestination = async () => {
     try {
-      const res = await fetchDestinations();
-      const activeDestinations = res.data.filter(
-        (item: Destination) => item.status === "Active"
-      );
-      setDestination(activeDestinations);
+      const res = await fetch("/data/destinations.json"); // public/data folder me rakhi file
+      if (!res.ok) throw new Error("Failed to load destinations");
+
+      const data: Destination[] = await res.json();
+
+      // Only Active destinations
+      // const activeDestinations = data.filter((item) => item.status === "Active");
+      setDestination(data);
       setError(null);
     } catch (err) {
+      console.error(err);
       setError("Failed to load destinations. Please try again later.");
     } finally {
       setLoading(false);
@@ -63,32 +66,26 @@ const Destinations = () => {
         {/* Loading Skeleton */}
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 animate-pulse mb-10">
-  {[...Array(6)].map((_, i) => (
-    <div
-      key={i}
-      className="bg-white rounded-2xl shadow-lg overflow-hidden h-80 flex flex-col justify-between"
-    >
-      {/* Image Placeholder */}
-      <div className="bg-gray-200 h-48 w-full"></div>
-
-      {/* Content Placeholder */}
-      <div className="p-4 flex flex-col justify-between flex-grow space-y-3">
-        <div>
-          <div className="h-5 bg-gray-200 rounded w-3/4 mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
-          <div className="h-4 bg-gray-200 rounded w-5/6"></div>
-        </div>
-
-        {/* Button Placeholder */}
-        <div className="h-10 bg-gray-200 rounded-md mt-4 w-full"></div>
-      </div>
-    </div>
-  ))}
-</div>
-
+            {[...Array(6)].map((_, i) => (
+              <div
+                key={i}
+                className="bg-white rounded-2xl shadow-lg overflow-hidden h-80 flex flex-col justify-between"
+              >
+                <div className="bg-gray-200 h-48 w-full"></div>
+                <div className="p-4 flex flex-col justify-between flex-grow space-y-3">
+                  <div>
+                    <div className="h-5 bg-gray-200 rounded w-3/4 mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-full mb-2"></div>
+                    <div className="h-4 bg-gray-200 rounded w-5/6"></div>
+                  </div>
+                  <div className="h-10 bg-gray-200 rounded-md mt-4 w-full"></div>
+                </div>
+              </div>
+            ))}
+          </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {destination.slice(0, 6).map((item) => (
+            {destination.map((item) => (
               <div
                 key={item._id}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full"
@@ -127,7 +124,7 @@ const Destinations = () => {
                       )}
                     </p>
                   </div>
-   
+
                   {/* CTA */}
                   <div className="mt-auto">
                     <Link href={`/destinations/${item.slug}`}>

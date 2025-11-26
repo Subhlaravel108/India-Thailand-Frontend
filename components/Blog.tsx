@@ -44,14 +44,15 @@ const Blog = () => {
       setLoading(true);
       setError(null);
 
-      const res = await api.get(`/front/blog`);
+      // const res = await api.get(`/front/blog`);
 
-      if (res.data.success) {
-        setBlogs(res.data.data);
-      } else {
-        setBlogs([]);
-        setError("Failed to fetch blogs.");
-      }
+      const res= await fetch("/data/blogs.json")
+      if(!res.ok) throw new Error("Failed to fetch blogs.");
+       const data:BlogType[]=await res.json();
+            
+        setBlogs(data);
+        setError(null);
+      
     } catch (err: any) {
       console.error("Error fetching blogs:", err);
       setBlogs([]);
