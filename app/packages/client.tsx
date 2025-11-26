@@ -259,12 +259,15 @@ const PackagesPage = () => {
                 {packages.map((pkg) => (
                   <div key={pkg._id} className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full">
                      <div className="relative overflow-hidden flex-shrink-0">
+                      <Link href={`/package/${pkg.slug}`}>
+                      
                       <img 
                         src={pkg.imageUrl} 
                         alt={pkg.title}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                       />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                      </Link>
+                      {/* <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div> */}
                       
                       {/* Status Badge */}
                       <div className="absolute top-3 left-3">

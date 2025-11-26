@@ -35,21 +35,6 @@ const TourCardSkeleton = () => (
       <div className="h-4 bg-gray-300 rounded mb-3 w-full"></div>
       <div className="h-4 bg-gray-300 rounded mb-3 w-2/3"></div>
       
-      <div className="mb-4">
-        <div className="flex items-center space-x-2 mb-2">
-          <div className="w-24 h-8 bg-gray-300 rounded"></div>
-          <div className="w-16 h-6 bg-gray-300 rounded"></div>
-        </div>
-      </div>
-      
-      <div className="mb-4 flex-grow">
-        <div className="h-4 bg-gray-300 rounded mb-2 w-1/3"></div>
-        <div className="space-y-1">
-          <div className="w-full h-4 bg-gray-300 rounded"></div>
-          <div className="w-3/4 h-4 bg-gray-300 rounded"></div>
-        </div>
-      </div>
-      
       <div className="mt-auto">
         <div className="w-full h-10 bg-gray-300 rounded"></div>
       </div>
@@ -77,7 +62,7 @@ const ToursListingPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
 
-  console.log("slug=", slug);
+  // console.log("slug=", slug);
 
   const loadTours = async (search = "", pageNum = 1) => {
     setLoading(true);
@@ -301,11 +286,14 @@ const ToursListingPage = () => {
                 {tours.map((tour) => (
                   <div key={tour._id} className="bg-white rounded-2xl shadow-lg overflow-hidden hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full">
                     <div className="relative">
+                      <Link href={`/tour/${tour.slug}`}>
+                      
                       <img 
                         src={tour.featureImage || "/placeholder-image.jpg"} 
                         alt={tour.title}
                         className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                       />
+                      </Link>
                       {/* Status Badge */}
                       {shouldShowField(tour.status) && (
                         <div className="absolute top-4 left-4">
@@ -356,61 +344,7 @@ const ToursListingPage = () => {
                         </div>
                       )}
                       
-                      {/* Price - Only show if exists */}
-                      {shouldShowField(tour.price) && tour.price > 0 && (
-                        <div className="mb-4">
-                          <div className="flex items-center space-x-2">
-                            <span className="text-2xl font-bold text-blue-600">
-                              {formatPrice(tour.price)}
-                            </span>
-                            {/* <span className="text-sm text-gray-500">per person</span> */}
-                          </div>
-                        </div>
-                      )}
                       
-                      {/* Countries - Only show if exists */}
-                      {shouldShowField(tour.countries) && (
-                        <div className="mb-4">
-                          <h4 className="font-semibold text-gray-800 mb-2 text-sm">Countries:</h4>
-                          <div className="flex flex-wrap gap-1">
-                            {tour.countries.split(',').map((country: string, index: number) => (
-                              shouldShowField(country.trim()) && (
-                                <span key={index} className="bg-blue-50 text-blue-700 px-2 py-1 rounded text-xs">
-                                  {country.trim()}
-                                </span>
-                              )
-                            ))}
-                          </div>
-                        </div>
-                      )}
-                      
-                      {/* Hotel Type - Only show if exists */}
-                      {shouldShowField(tour.hotelType) && (
-                        <div className="mb-4 flex items-center space-x-2 text-sm text-gray-600">
-                          <Hotel className="w-4 h-4" />
-                          <span>{tour.hotelType} Hotel</span>
-                        </div>
-                      )}
-                      
-                      {/* Included Items Preview - Only show if exists */}
-                      {tour.included && tour.included.length > 0 && tour.included.some(shouldShowField) && (
-                        <div className="mb-4 flex-grow">
-                          <h4 className="font-semibold text-gray-800 mb-2 text-sm">Includes:</h4>
-                          <div className="space-y-1">
-                            {tour.included.filter(shouldShowField).slice(0, 3).map((item: string, index: number) => (
-                              <div key={index} className="flex items-center text-sm text-gray-600">
-                                <Check className="w-3 h-3 text-green-500 mr-2 flex-shrink-0" />
-                                <span className="line-clamp-1">{item}</span>
-                              </div>
-                            ))}
-                            {tour.included.filter(shouldShowField).length > 3 && (
-                              <div className="text-xs text-gray-500">
-                                +{tour.included.filter(shouldShowField).length - 3} more inclusions
-                              </div>
-                            )}
-                          </div>
-                        </div>
-                      )}
                       
                       {/* CTA Button */}
                       <div className="mt-auto">

@@ -296,11 +296,11 @@ const TourDetail = () => {
                               <p className="text-muted-foreground mt-2 line-clamp-3">
                                 {parse(place.short_description)}
                               </p>
-                              {/* <Button asChild className="w-full mt-4">
+                              <Button asChild className="w-full mt-4">
               <Link href={`/destinations/${place.slug}`}>
                 View Destination
-              </Link> */}
-                              {/* </Button> */}
+              </Link> 
+                             </Button>
                             </CardContent>
 
                           </Card>
