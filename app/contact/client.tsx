@@ -142,7 +142,7 @@ const ContactClient = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-green-600 to-blue-600">
+      <section className="relative py-10 bg-gradient-to-r from-green-600 to-blue-600">
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             Contact Us

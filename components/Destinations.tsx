@@ -3,6 +3,7 @@ import { MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useEffect, useState } from "react";
 import Link from "next/link";
+import api, { fetchDestinations } from "@/lib/api";
 
 // Type definition
 interface Destination {
@@ -20,24 +21,44 @@ const Destinations = () => {
   const [error, setError] = useState<string | null>(null);
 
   // Load Destinations from static JSON
-  const loadDestination = async () => {
-    try {
-      const res = await fetch("/data/destinations.json"); // public/data folder me rakhi file
-      if (!res.ok) throw new Error("Failed to load destinations");
+ const loadDestination = async () => {
+  try {
+    // 1️⃣ Try loading from local JSON file
+    const res = await fetch("/data/destinations_homepage.json");
 
-      const data: Destination[] = await res.json();
+    if (res.ok) {
+      const data = await res.json();
+      // console.log("Loaded from file:", data);
 
-      // Only Active destinations
-      // const activeDestinations = data.filter((item) => item.status === "Active");
-      setDestination(data);
+      setDestination(data.data);
       setError(null);
-    } catch (err) {
-      console.error(err);
-      setError("Failed to load destinations. Please try again later.");
-    } finally {
-      setLoading(false);
+      return; // File mil gayi → API call ki zarurat nahi
     }
-  };
+
+    throw new Error("Local JSON not found");
+  } 
+  catch (err) {
+    console.warn("Local file load failed, calling API...", err);
+
+    // 2️⃣ Fallback → API with Axios
+    try {
+      const apiRes = await api.get("/front/destinations?limit=6");
+
+      // console.log("Loaded from API:", apiRes.data);
+
+      setDestination(apiRes.data.data);  // axios → response.data
+      setError(null);
+    } 
+    catch (apiErr) {
+      console.error(apiErr);
+      setError("Failed to load destinations from both file and API.");
+    }
+  }
+  finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     loadDestination();

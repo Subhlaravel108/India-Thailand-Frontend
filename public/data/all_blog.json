@@ -1,0 +1,65 @@
+{
+  "success": true,
+  "pagination": {
+    "total": 2,
+    "page": 1,
+    "limit": 9,
+    "totalPages": 1
+  },
+  "data": [
+    {
+      "_id": "6915a13c9ea12d5ddff2a826",
+      "title": "Top 10 Beaches in Thailand You Must Visit",
+      "slug": "top-10-beaches-in-thailand-you-must-visit",
+      "author": "Ravi Prajapat",
+      "categoryId": "690efe41f71db19cc994cf8f",
+      "summary": "Thailand is home to some of the most beautiful beaches in the world. From the lively Patong Beach to the serene Railay Bay, this guide covers the top 10 beaches that every traveler must experience at least once.",
+      "content": "<p>Thailand’s coastline stretches for thousands of kilometers, offering a perfect mix of adventure and relaxation. Here are the top 10 beaches you should not miss:</p><ol><li><strong>Patong Beach (Phuket):</strong> Known for its nightlife and beachside bars.</li><li><strong>Railay Beach (Krabi):</strong> Accessible only by boat, ideal for rock climbing.</li><li><strong>Maya Bay (Phi Phi Islands):</strong> Famous for its turquoise water and white sand.</li><li><strong>Lamai Beach (Koh Samui):</strong> A quieter alternative to Chaweng.</li><li><strong>Ao Nang Beach (Krabi):</strong> Perfect for families and evening walks.</li></ol><p>Each of these beaches offers a unique experience — whether you’re looking for party vibes, peaceful sunsets, or thrilling water sports. Thailand truly has a beach for every kind of traveler.</p>",
+      "featuredImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1763025189/tours_app_uploads/l0og9lausvnxl4ukd2cw.jpg",
+      "publishDate": null,
+      "status": "Published",
+      "tags": [
+        "thailand",
+        "beaches",
+        "travel guide",
+        "phuket",
+        "krabi",
+        "holiday"
+      ],
+      "meta_title": "Best Beaches in Thailand – Top 10 You Must Visit",
+      "meta_description": "Plan your perfect Thailand holiday with our list of the top 10 most beautiful beaches — from Phuket to Krabi and Koh Samui.",
+      "meta_keywords": "Thailand beaches, Phuket, Krabi, Phi Phi islands, travel blog, tropical vacation",
+      "published_at": "2025-11-13T09:13:32.206Z",
+      "createdAt": "2025-11-13T09:13:32.206Z",
+      "updatedAt": "2025-11-27T10:54:33.882Z",
+      "showingOnHomePage": true
+    },
+    {
+      "_id": "69159f939ea12d5ddff2a825",
+      "title": "A Perfect 7-Day Thailand Itinerary from Jaipur",
+      "slug": "a-perfect-7-day-thailand-itinerary-from-jaipur-1",
+      "author": "Ravi Prajapat",
+      "categoryId": "690efe41f71db19cc994cf8f",
+      "summary": "Planning a trip from Jaipur to Thailand? Here’s your ultimate 7-day itinerary covering Bangkok, Pattaya, and Phuket. From beaches and temples to nightlife and street food, explore everything Thailand has to offer in one amazing week.",
+      "content": "<p>Thailand is one of the most popular international destinations for travelers from Jaipur. With its exotic beaches, mouth-watering cuisine, and vibrant culture, it’s the perfect getaway. Here’s a detailed 7-day itinerary:</p><p><strong>Day 1–2:</strong> Start in Bangkok — visit the Grand Palace, Wat Arun, and take a river cruise. Don’t miss the floating market and local street food at night.</p><p><strong>Day 3–4:</strong> Head to Pattaya — relax at Coral Island, enjoy water sports, and explore the Walking Street nightlife.</p><p><strong>Day 5–7:</strong> Fly to Phuket — spend your days at Patong Beach, Phi Phi Islands, and enjoy the famous sunset viewpoint at Promthep Cape.</p><p>This itinerary balances culture, adventure, and relaxation, making it ideal for couples, families, or friends looking for the best Thailand experience from Jaipur.</p>",
+      "featuredImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1763024977/tours_app_uploads/qzesgjchtwz9sfbxglni.jpg",
+      "publishDate": null,
+      "status": "Published",
+      "tags": [
+        "thailand",
+        "jaipur travel",
+        "itinerary",
+        "phuket",
+        "bangkok",
+        "pattaya"
+      ],
+      "meta_title": "7 Days Thailand Itinerary from Jaipur",
+      "meta_description": "Discover the ultimate 7-day Thailand itinerary from Jaipur covering Bangkok, Pattaya, and Phuket — beaches, temples, food, and nightlife.",
+      "meta_keywords": "Thailand itinerary, Jaipur to Thailand tour, Phuket, Bangkok, Pattaya, travel guide",
+      "published_at": "2025-11-13T09:06:27.669Z",
+      "createdAt": "2025-11-13T09:06:27.669Z",
+      "updatedAt": "2025-11-27T10:53:40.778Z",
+      "showingOnHomePage": true
+    }
+  ]
+}

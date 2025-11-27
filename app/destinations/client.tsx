@@ -50,7 +50,7 @@ const DestinationCardSkeleton = () => (
 
 // Skeleton Grid for Loading State
 const DestinationsSkeletonGrid = () => (
-  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+  <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
     {Array.from({ length: 8 }).map((_, index) => (
       <DestinationCardSkeleton key={index} />
     ))}
@@ -64,30 +64,70 @@ const DestinationsPage = () => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
-  const [limit, setLimit] = useState(10);
+  const [limit, setLimit] = useState(9);
   const [total, setTotal] = useState(0);
 
-  const loadDestinations = async (search = "", pageNum = 1) => {
-    setLoading(true);
+const loadDestinations = async (search = "", pageNum = 1) => {
+  setLoading(true);
+
+  try {
+    // 1️⃣ Try loading from local JSON file
+    const fileRes = await fetch("/data/all_destinations.json");
+
+    if (fileRes.ok) {
+      const fileData = await fileRes.json();
+      console.log("Loaded from FILE:", fileData);
+
+      const list = fileData.data || [];
+
+      // Apply search & pagination manually
+      const filtered = list.filter((item:any) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      );
+
+      const limit = 9;
+      const start = (pageNum - 1) * limit;
+      const paginated = filtered.slice(start, start + limit);
+
+      setDestinations(paginated);
+      setTotal(filtered.length);
+      setLimit(limit);
+      setTotalPages(Math.ceil(filtered.length / limit));
+
+      return; // 📌 JSON load ok → no API call needed
+    }
+
+    throw new Error("Local JSON file not found");
+  }
+  catch (fileErr) {
+    console.warn("JSON file failed → calling API...", fileErr);
+
+    // 2️⃣ Fallback → API call
     try {
       const res = await fetchDestinations({ page: pageNum, search });
+
       if (res.success) {
+        console.log("Loaded from API:", res);
+
         setDestinations(res.data || []);
-        console.log("destination=", res);
         setTotalPages(res.pagination?.totalPages || 1);
-        setLimit(res.pagination?.limit || 10);
+        setLimit(res.pagination?.limit || 9);
         setTotal(res.pagination?.total || 0);
       } else {
         setDestinations([]);
         toast.error(res.message || "Failed to fetch destinations");
       }
-    } catch (e) {
-      toast.error("Failed to load destinations");
-      console.error(e);
-    } finally {
-      setLoading(false);
     }
-  };
+    catch (apiErr) {
+      toast.error("Failed to load destinations");
+      console.error(apiErr);
+    }
+  }
+  finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     loadDestinations();
@@ -118,7 +158,7 @@ const DestinationsPage = () => {
       setPage(newPage);
       loadDestinations(debouncedSearch, newPage);
       // Scroll to top when page changes
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      // window.scrollTo({ top: 0, behavior: 'smooth' });
     }
   };
 
@@ -179,7 +219,7 @@ const DestinationsPage = () => {
       <Header />
 
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900">
+      <section className="relative py-10 bg-gradient-to-br from-blue-900 via-blue-800 to-purple-900">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 text-center text-white relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-6 leading-tight">
@@ -264,7 +304,7 @@ const DestinationsPage = () => {
             </div>
           ) : (
             <>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3  gap-6">
                 {destinations.map((destination) => (
                   <div
                     key={destination._id || destination.id}

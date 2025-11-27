@@ -1,0 +1,39 @@
+{
+  "success": true,
+  "pagination": {
+    "total": 2,
+    "page": 1,
+    "limit": 10,
+    "totalPages": 1
+  },
+  "data": [
+    {
+      "_id": "6911ad888ba2963f27b68907",
+      "title": "Bali Paradise Getaway",
+      "slug": "bali-paradise-getaway",
+      "shortDescription": "<p>A peaceful retreat in Bali’s tropical paradise. Enjoy temples, beaches, and waterfalls in a luxury setting perfect for couples and families.</p>",
+      "imageUrl": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762766211/tours_app_uploads/vy1yec5s5c6buds7bcli.avif",
+      "status": "Active",
+      "createdAt": "2025-11-10T09:16:56.258Z",
+      "meta_description": "Experience a peaceful retreat with the Bali Paradise Getaway. Explore stunning temples, beautiful beaches, lush waterfalls, and enjoy luxury stays—perfect for couples, families, and nature lovers.",
+      "meta_keywords": "bali tour package, bali paradise getaway, bali honeymoon package, bali luxury vacation, bali beaches tour, bali temple tour, bali family trip, bali holiday package, bali waterfalls tour, best bali tour package",
+      "meta_title": "Bali Paradise Getaway – Luxury Bali Tour Package | Temples, Beaches & Waterfalls",
+      "updatedAt": "2025-11-27T08:52:26.454Z",
+      "showingOnHomePage": true
+    },
+    {
+      "_id": "6911acad8ba2963f27b68906",
+      "title": "Thailand Explorer Package",
+      "slug": "thailand-explorer-package",
+      "shortDescription": "<p>Experience the beauty of Thailand — from Bangkok’s vibrant streets to Phuket’s serene beaches. Perfect for culture, nightlife, and relaxation lovers.</p>",
+      "imageUrl": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762765992/tours_app_uploads/e69adeifpo2qm4ytgnm0.webp",
+      "status": "Active",
+      "createdAt": "2025-11-10T09:13:17.623Z",
+      "meta_description": "Explore the best of Thailand with our Thailand Explorer Package. Discover Bangkok’s vibrant city life, Phuket’s serene beaches, rich culture, nightlife, and relaxing tropical vibes—perfect for all types of travelers.",
+      "meta_keywords": "thailand tour package, thailand explorer package, bangkok tour package, phuket tour package, thailand holiday package, thailand beaches tour, thailand nightlife tour, best thailand package, thailand travel deals, thailand vacation package",
+      "meta_title": "Thailand Explorer Package – Bangkok to Phuket Tour | Beaches, Culture & Nightlife",
+      "updatedAt": "2025-11-27T08:53:53.988Z",
+      "showingOnHomePage": true
+    }
+  ]
+}

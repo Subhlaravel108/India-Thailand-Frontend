@@ -69,7 +69,7 @@ const AboutPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-blue-900 to-blue-700">
+      <section className="relative py-10 bg-gradient-to-r from-blue-900 to-blue-700">
         <div className="container mx-auto px-4 text-center text-white">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
             About {contactInfo.websiteName}

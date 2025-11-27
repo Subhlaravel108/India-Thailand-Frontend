@@ -1,0 +1,128 @@
+{
+  "success": true,
+  "pagination": {
+    "total": 6,
+    "page": 1,
+    "limit": 6,
+    "totalPages": 1
+  },
+  "data": [
+    {
+      "_id": "6911b0028ba2963f27b68908",
+      "title": "Bangkok",
+      "slug": "bangkok",
+      "description": "<p>Bangkok is a vibrant, buzzing city of more than eight million people that offers a perfect blend of the modern and the ancient. Must-see cultural landmarks include the magnificent&nbsp;Grand Palace&nbsp;and the sacred&nbsp;Wat Phra Kaew (Temple of the Emerald Buddha), as well as&nbsp;Wat Pho, home to a gigantic, gold-leaf-covered Reclining Buddha. For a unique experience, explore the city's network of canals by long-tail boat or get lost in one of the largest outdoor markets in the world,&nbsp;Chatuchak Weekend Market. After dark, the city comes alive with a pulsating nightlife, incredible rooftop bars, and countless street food stalls where you can taste Michelin-starred delicacies.</p>",
+      "featured_image": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762766801/tours_app_uploads/slqvtt4hcnsgcqbjwyr0.jpg",
+      "meta_title": "op Things to Do in Bangkok | Travel Guide 2025",
+      "meta_description": "Your complete guide to Bangkok. Explore the Grand Palace, Wat Arun, vibrant floating markets, and world-class street food in Thailand's capital.",
+      "meta_keywords": "bangkok, grand palace, wat arun, thailand travel, floating market, street food",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762766818/tours_app_uploads/wa0gmgp2i8thjs3nxeul.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762766819/tours_app_uploads/r289trsgni0hx6djjcfi.avif",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762766819/tours_app_uploads/n9vnpfq79uzkudxf6ryy.avif"
+      ],
+      "status": "Active",
+      "short_description": "<p>A neon-frantic and temple-tranquil capital city, Bangkok delivers rich culture, fabulous art galleries, frenetic markets, and some of the best street food on the planet.</p>",
+      "createdAt": "2025-11-10T09:27:30.612Z",
+      "updatedAt": "2025-11-27T06:18:25.394Z",
+      "showingOnHomePage": true
+    },
+    {
+      "_id": "6911aafb8ba2963f27b68905",
+      "title": "Canggu Bohemian Village",
+      "slug": "canggu-bohemian-village",
+      "description": "<p>🌊Live the Canggu Vibe&nbsp;– Where Surf Meets Soul!🌊</p><p>🏄&nbsp;Surf &amp; Beach Life:</p><p>•&nbsp;Batu Bolong Beach&nbsp;– Perfect waves for beginners &amp; pros</p><p>•&nbsp;Echo Beach&nbsp;– Black sand beach with epic sunsets</p><p>•&nbsp;Berawa Beach&nbsp;– Surf breaks &amp; beachfront cafes</p><p>☕&nbsp;Digital Nomad Hub:</p><p>•&nbsp;Dojo Bali&nbsp;– Premier co-working space community</p><p>•&nbsp;Crate Café&nbsp;– Famous among remote workers &amp; creatives</p><p>•&nbsp;The Lawn&nbsp;– Beachfront workspace with ocean views</p><p>🌱&nbsp;Healthy Lifestyle:</p><p>•&nbsp;Yoga Studios&nbsp;– Morning sessions with rice field views</p><p>•&nbsp;Organic Cafés&nbsp;– Avocado toast &amp; smoothie bowls</p><p>•&nbsp;Street Art&nbsp;– Vibrant murals throughout the village</p>",
+      "featured_image": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762765497/tours_app_uploads/chi3rpl0adtlte8m4lrq.jpg",
+      "meta_title": "Canggu Bali 2025 | Surf, Cafes & Digital Nomad Guide",
+      "meta_description": "Discover Canggu's surf culture, trendy cafes, and digital nomad community. Complete guide to Bali's most popular bohemian village.",
+      "meta_keywords": "canggu, batu bolong beach, digital nomad bali, bali surf, healthy cafes",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762765506/tours_app_uploads/kgeea0q9owxiutjko2nw.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762765508/tours_app_uploads/qepgrnz4uxgtzrn75l7a.jpg"
+      ],
+      "status": "Active",
+      "short_description": "<p>Bali's trendiest coastal village with surf culture, digital nomad community, and healthy lifestyle.</p>",
+      "createdAt": "2025-11-10T09:06:03.020Z",
+      "updatedAt": "2025-11-27T06:30:42.868Z",
+      "showingOnHomePage": true
+    },
+    {
+      "_id": "6911aa1c8ba2963f27b68904",
+      "title": "Seminyak Luxury Escape",
+      "slug": "seminyak-luxury-escape",
+      "description": "<p>💫&nbsp;Indulge in Seminyak&nbsp;– Where Luxury Meets Tropical Bliss! 💫</p><p>🏖️&nbsp;Beach Club Paradise:</p><p>•&nbsp;Potato Head Beach Club&nbsp;– Iconic sunset drinks &amp; infinity pool</p><p>•&nbsp;Ku De Ta&nbsp;– World-class dining with ocean views</p><p>•&nbsp;La Plancha&nbsp;– Colorful bean bags on Double Six Beach</p><p>🛍️&nbsp;Shopping &amp; Dining:</p><p>•&nbsp;Jalan Kayu Aya&nbsp;– Chic boutiques &amp; designer stores</p><p>•&nbsp;Sarong Restaurant&nbsp;– Award-winning fine dining experience</p><p>•&nbsp;Biku Restaurant&nbsp;– Afternoon tea in antique Joglo house</p><p>🌊&nbsp;Beach Experiences:</p><p>•&nbsp;Double Six Beach&nbsp;– Golden sands &amp; spectacular sunsets</p><p>•&nbsp;Surf Lessons&nbsp;– Ride the gentle waves of Seminyak Beach</p><p>•&nbsp;Befront Massage&nbsp;– Traditional Balinese massage on the beach</p>",
+      "featured_image": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762765332/tours_app_uploads/jfsx7qcsth4lotbtahu0.jpg",
+      "meta_title": "Seminyak Bali 2025 | Luxury Beach Clubs & Fine Dining",
+      "meta_description": "Experience Seminyak's luxury beach clubs, gourmet restaurants, and upscale shopping. Your guide to Bali's most sophisticated destination.",
+      "meta_keywords": "seminyak, potato head beach club, bali luxury, fine dining bali, beach clubs",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762765229/tours_app_uploads/ly8jiblaqykobvlezsyb.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762765241/tours_app_uploads/oruc1esoluqvjfcgbyjc.jpg"
+      ],
+      "status": "Active",
+      "short_description": "<p>Bali's most sophisticated beach destination with luxury villas, gourmet dining, and stunning sunsets.</p>",
+      "createdAt": "2025-11-10T09:02:20.606Z",
+      "updatedAt": "2025-11-27T06:30:57.558Z",
+      "showingOnHomePage": true
+    },
+    {
+      "_id": "6911a3498ba2963f27b68901",
+      "title": "Tanah Lot Temple",
+      "slug": "tanah-lot-temple",
+      "description": "<p>Tanah Lot Temple is one of Bali's most important sea temples, dedicated to the sea god Dewa Baruna. Its unique offshore setting and spectacular sunset backdrops make it incredibly popular. While the inner temple is reserved for worshippers, the site offers breathtaking views from the cliff tops. Explore the surrounding area to find souvenir shops and cliff-top cafes serving local cuisine. According to legend, the temple is guarded by venomous sea snakes from evil spirits. Be sure to visit during low tide for the best photo opportunities and to witness the temple looking like it's floating on the sea.</p>",
+      "featured_image": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762763578/tours_app_uploads/dlkcihhhedrhkpw2p88w.jpg",
+      "meta_title": "Tanah Lot Temple Bali | Visit the Iconic Sea Temple",
+      "meta_description": "Discover the iconic Tanah Lot Temple, a stunning Hindu shrine perched on a rock formation in the sea. Best known for its unforgettable sunsets.",
+      "meta_keywords": "tanah lot temple, bali sea temple, bali sunset, bali landmark, pura tanah lot",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762763578/tours_app_uploads/uxhsazft7yw8rtaztayc.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762763584/tours_app_uploads/qfxlziuo4cfq75pu5yxp.jpg"
+      ],
+      "status": "Active",
+      "short_description": "<p>&nbsp;An iconic 16th-century Hindu temple perched on a dramatic rocky islet, Tanah Lot is one of Bali's most photographed and sacred landmarks.</p>",
+      "createdAt": "2025-11-10T08:33:13.149Z",
+      "updatedAt": "2025-11-27T06:32:13.664Z",
+      "showingOnHomePage": true
+    },
+    {
+      "_id": "69119395711280d4e4c55b06",
+      "title": "Ubud",
+      "slug": "ubud",
+      "description": "<p>Immerse yourself in the artistic and cultural epicenter of Bali. Ubud is famous for the stunning&nbsp;Tegallalang Rice Terraces, where you can walk through lush, tiered paddies. Visit the sacred&nbsp;Ubud Monkey Forest&nbsp;to see hundreds of long-tailed macaques in a jungle sanctuary. The town is dotted with art galleries and museums, such as the Neka Art Museum, showcasing traditional and contemporary Balinese work. For a unique experience, practice yoga at one of the many wellness retreats, watch a traditional dance performance, and shop for handmade souvenirs at the vibrant Ubud Art Market.</p>",
+      "featured_image": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762759527/tours_app_uploads/ezphivhfixsxghfz9yzt.jpg",
+      "meta_title": "Ubud, Bali - Cultural Heart with Rice Terraces & Temples",
+      "meta_description": "Experience the magic of Ubud. Explore the Tegallalang Rice Terraces, Sacred Monkey Forest, art markets, and spiritual yoga retreats.",
+      "meta_keywords": "ubud bali, tegalalang rice terraces, monkey forest, bali culture, yoga retreat",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762759549/tours_app_uploads/ikl1cbjkpk8k8uwbnbit.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762759540/tours_app_uploads/fnnkpsjecw0r1bqv3zvn.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762759541/tours_app_uploads/lqreffshaf2wjesfs5hb.jpg"
+      ],
+      "status": "Active",
+      "short_description": "<p>&nbsp;The cultural heart of Bali, Ubud is a magical paradise of serene rice terraces, sacred temples, art galleries, and spiritual wellness retreats.</p>",
+      "createdAt": "2025-11-10T07:26:13.479Z",
+      "updatedAt": "2025-11-27T06:31:33.500Z",
+      "showingOnHomePage": true
+    },
+    {
+      "_id": "69119160711280d4e4c55b05",
+      "title": "Chiang Mai",
+      "slug": "chiang-mai",
+      "description": "<p>Shrouded in misty, jungly mountains, Chiang Mai offers a more laid-back experience. Explore the historic&nbsp;<strong>Old City</strong>, surrounded by the remains of a moat, which is home to over 500 ancient temples, including the stunning&nbsp;<strong>Wat Phra Singh</strong>. Take a trip up the mountain to&nbsp;<strong>Wat Phra</strong> <strong>That Doi Suthep</strong>, one of Thailand's holiest sites, for breathtaking views over the city. Nature lovers can go hiking in lush jungles, raft along rivers, and visit ethical elephant sanctuaries. As the sun sets, don't miss the famous&nbsp;<strong>Chiang Mai Night Bazaar</strong>&nbsp;to shop for authentic handicrafts and sample delicious northern Thai cuisine.</p>",
+      "featured_image": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762758930/tours_app_uploads/tw9lxhqqjqlhl2wvhcs4.jpg",
+      "meta_title": "Chiang Mai Travel Guide | Temples, Elephants & Night Bazaars",
+      "meta_description": "Discover Chiang Mai's ancient temples, ethical elephant encounters, and beautiful mountains. Your ultimate guide to Thailand's northern capital",
+      "meta_keywords": "chiang mai, doi suthep, thailand temples, elephant sanctuary, night bazaar",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762758945/tours_app_uploads/ljk70wfmpnqehy8njhoa.avif",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762758940/tours_app_uploads/tftubbtnmsntkf9hmdoq.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1762758944/tours_app_uploads/cqvzpmilok0l5ewmfkff.webp"
+      ],
+      "status": "Active",
+      "short_description": "<p>The cultural capital of Northern Thailand, Chiang Mai is known for its ancient temples, lush jungles, ethical elephant encounters, and vibrant night bazaars.</p>",
+      "createdAt": "2025-11-10T07:16:48.624Z",
+      "updatedAt": "2025-11-27T06:31:14.726Z",
+      "showingOnHomePage": true
+    }
+  ]
+}

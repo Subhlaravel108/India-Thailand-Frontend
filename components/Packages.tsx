@@ -4,7 +4,7 @@ import { Check, Users, Calendar, MapPin } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
-import { fetchTourPackages } from "@/lib/api";
+import api, { fetchTourPackages } from "@/lib/api";
 import Link from "next/link";
 
 
@@ -42,15 +42,28 @@ const Packages = () => {
    const loadPackages = async () => {
       // setLoading(true);
       try {
-        const res = await fetch("/data/packages.json");
-        if (!res.ok) throw new Error("Failed to load packages");
+        const res = await fetch("/data/packages_homepage.json");
+        if (res.ok) {
          const data= await res.json();
         
-          setPackages(data || []);
+          setPackages(data.data || []);
           setError(null);
+          return;
+        }
+        throw new Error("Failed to load from file");
       } catch (e) {
-        setError("Failed to load packages");
-        console.error(e);
+        // setError("Failed to load packages");
+        console.warn("failed to load packages",e);
+        try {
+          const apiRes = await api.get("/front/package?limit=6")
+          setPackages(apiRes.data.data);
+          setError(null);
+        }
+        catch (apiErr) {
+          console.error(apiErr);
+          setError("Failed to load packages from both file and API.");
+        }
+
       } finally {
         setLoading(false);
       }
@@ -82,10 +95,12 @@ const Packages = () => {
         {loading ? (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           <PackageCardSkeleton/>
+          <PackageCardSkeleton/>
+          <PackageCardSkeleton/>
           </div>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {packages.slice(0, 3).map((item) => (
+            {packages.map((item) => (
               <div
                 key={item._id}
                 className="bg-white rounded-xl shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 group flex flex-col h-full"

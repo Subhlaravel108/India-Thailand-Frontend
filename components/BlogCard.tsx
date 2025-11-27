@@ -23,7 +23,7 @@ const BlogCard = ({ title, summary,slug, published_at, thumbnail_image }: BlogCa
        </Link>
         <p className="text-sm text-muted-foreground">
 
-        {format(parseISO(published_at), "dd MMM yyyy")}
+        {format(parseISO(published_at), "dd MMM yyy")}
         </p>
       </CardHeader>
       <CardContent className="flex flex-col flex-1">

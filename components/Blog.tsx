@@ -39,35 +39,58 @@ const Blog = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const fetchBlogs = async () => {
-    try {
-      setLoading(true);
-      setError(null);
+const fetchBlogs = async () => {
+  setLoading(true); // 🔥 Sabse zaroori line
+  setError(null);
 
-      // const res = await api.get(`/front/blog`);
+  try {
+    const res = await fetch("/data/blog_homepage.json");
 
-      const res= await fetch("/data/blogs.json")
-      if(!res.ok) throw new Error("Failed to fetch blogs.");
-       const data:BlogType[]=await res.json();
-            
-        setBlogs(data);
-        setError(null);
-      
-    } catch (err: any) {
-      console.error("Error fetching blogs:", err);
-      setBlogs([]);
+    if (res.ok) {
+      const data = await res.json();
 
-      if (err.response?.status === 404) {
-        setError("No blogs found.");
-      } else if (err.code === "ERR_NETWORK") {
-        setError("Network error.");
-      } else {
-        setError("Something went wrong.");
-      }
-    } finally {
+      setBlogs(data.data || []);
       setLoading(false);
+      setError(null);
+     
+
+      return; // File se data mil gaya → API call nahi karni
     }
-  };
+
+    throw new Error("Local file not found");
+  } catch (fileErr) {
+    console.warn("Local file failed → switching to API");
+  }
+
+  // -----------------------------------------
+  // 🔁 2nd Attempt — Fetch from API
+  // -----------------------------------------
+  try {
+    const apiRes = await api.get(`/front/blog`);
+
+    if (apiRes.data?.data) {
+      setBlogs(apiRes.data.data);
+    } else {
+      setBlogs([]);
+      setError("No blogs found.");
+    }
+  } catch (err: any) {
+    console.error("API Error:", err);
+    setBlogs([]);
+
+    if (err.response?.status === 404) {
+      setError("No blogs found.");
+    } else if (err.code === "ERR_NETWORK") {
+      setError("Network error.");
+    } else {
+      setError("Something went wrong.");
+    }
+  } finally {
+    setLoading(false); // ✔ loading ab hamesha band hoga
+  }
+};
+
+
 
   useEffect(() => {
     fetchBlogs();
@@ -90,7 +113,7 @@ const Blog = () => {
         {/* Skeleton Loader Grid */}
         {loading && (
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mb-12">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {Array.from({ length: 3 }).map((_, i) => (
               <BlogSkeleton key={i} />
             ))}
           </div>
@@ -118,7 +141,7 @@ const Blog = () => {
                   <div className="text-sm text-muted-foreground mb-3 flex items-center gap-4">
                     <div className="flex items-center gap-1">
                       <Calendar className="w-4 h-4" />
-                      <span>{format(parseISO(post.published_at), 'dd MMM YYY')}</span>
+                      <span>{format(parseISO(post.published_at), 'dd MMM yyy')}</span>
                     </div>
 
                     {post.author && (

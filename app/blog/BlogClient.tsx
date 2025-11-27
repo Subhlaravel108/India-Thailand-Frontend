@@ -50,7 +50,7 @@ const BlogPage = () => {
   const [search, setSearch] = useState("");
   const [debouncedSearch, setDebouncedSearch] = useState("");
   const [page, setPage] = useState(1);
-  const [perPage] = useState(12);
+  const [perPage] = useState(9);
   const [totalPages, setTotalPages] = useState(1);
   const [totalCount, setTotalCount] = useState(0);
   const [isLoading, setIsLoading] = useState(false);
@@ -70,41 +70,80 @@ const BlogPage = () => {
     fetchBlogs();
   }, [page, debouncedSearch]);
 
-  const fetchBlogs = async () => {
-    try {
-      setIsLoading(true);
-      setError(null);
+const fetchBlogs = async () => {
+  setIsLoading(true);
+  setError(null);
 
-      const res = await api.get(`/front/blog`, {
-        params: {
-          page,
-          limit: perPage,
-          search: debouncedSearch,
-        },
-      });
+  // --------------------------------------
+  // 1) LOCAL JSON → SEARCH + PAGINATION
+  // --------------------------------------
+  try {
+    const localRes = await fetch(`/data/all_blog.json`);
 
-      if (res.data.success) {
-        setBlogs(res.data.data);
-        setTotalPages(res.data.pagination?.totalPages || 1);
-        setTotalCount(res.data.pagination?.total || 0);
-      } else {
-        setBlogs([]);
-        setError("Failed to fetch blogs. Please try again.");
-      }
-    } catch (err: any) {
-      console.error("Error fetching blogs:", err);
-      setBlogs([]);
-      if (err.response?.status === 404) {
-        setError("No blogs found.");
-      } else if (err.code === "ERR_NETWORK") {
-        setError("Network error. Please check your connection.");
-      } else {
-        setError("Something went wrong while fetching blogs.");
-      }
-    } finally {
+    if (localRes.ok) {
+      const jsonData = await localRes.json();
+      const list: Blog[] = jsonData.data || [];
+
+      // 🔍 SEARCH
+      const filtered = list.filter((blog: Blog) =>
+        blog.title.toLowerCase().includes(debouncedSearch.toLowerCase()) ||
+        blog.tags.some(tag => tag.toLowerCase().includes(debouncedSearch.toLowerCase())) ||
+        blog.author.toLowerCase().includes(debouncedSearch.toLowerCase())
+      );
+
+      // 📄 PAGINATION (same as API limit)
+      const limit = perPage;
+      const start = (page - 1) * limit;
+      const paginated = filtered.slice(start, start + limit);
+
+      // STATE UPDATE
+      setBlogs(paginated);
+      setTotalCount(filtered.length);
+      setTotalPages(Math.ceil(filtered.length / limit));
+
+      console.log("Loaded from LOCAL JSON + applied search + pagination");
       setIsLoading(false);
+      return; // stop here if JSON successful
     }
-  };
+
+    throw new Error("Local JSON failed");
+  } catch (err) {
+    console.warn("Local JSON failed. Trying API…");
+  }
+
+  // --------------------------------------
+  // 2) API FALLBACK → SEARCH + PAGINATION
+  // --------------------------------------
+  try {
+    const res = await api.get(`/front/blog`, {
+      params: {
+        page,
+        limit: perPage,
+        search: debouncedSearch,
+      },
+    });
+
+    if (res.data.success) {
+      setBlogs(res.data.data);
+      setTotalPages(res.data.pagination?.totalPages || 1);
+      setTotalCount(res.data.pagination?.total || 0);
+    } else {
+      setBlogs([]);
+      setError("Failed to fetch blogs. Please try again.");
+    }
+  } catch (err: any) {
+    console.error("API Error:", err);
+    setBlogs([]);
+
+    if (err.response?.status === 404) setError("No blogs found.");
+    else if (err.code === "ERR_NETWORK") setError("Network error.");
+    else setError("Something went wrong while fetching blogs.");
+  } finally {
+    setIsLoading(false);
+  }
+};
+
+
 
   // 📜 Pagination Range Helper
   const getPaginationRange = (current: number, total: number, delta = 2) => {
@@ -176,7 +215,7 @@ const BlogPage = () => {
       <Header/>
       <div className="min-h-screen bg-gray-50">
         {/* 🌅 Hero Section */}
-        <section className="relative py-20 bg-gradient-to-br from-blue-900 to-purple-800 text-white">
+        <section className="relative py-10 bg-gradient-to-br from-blue-900 to-purple-800 text-white">
           <div className="absolute inset-0 bg-black/20"></div>
           <div className="relative max-w-7xl mx-auto px-4 text-center">
             <h1 className="text-4xl md:text-5xl font-bold mb-4">

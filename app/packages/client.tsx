@@ -54,27 +54,62 @@ const PackagesPage = () => {
   const [page, setPage] = useState(1);
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
+   const [limit, setLimit] = useState(9);
+ const loadPackages = async (search = "", pageNum = 1) => {
+  setLoading(true);
 
-  const loadPackages = async (search = "", pageNum = 1) => {
-    setLoading(true);
-    try {
-      const res = await fetchTourPackages({ page: pageNum, search });
-      if (res.success) {
-        setPackages(res.data || []);
-        console.log(res.data)
-        setTotalPages(res.totalPages || 1);
-        setTotal(res.total || 0);
-      } else {
-        setPackages([]);
-        toast.error(res.message || "Failed to fetch packages");
-      }
-    } catch (e) {
-      toast.error("Failed to load packages");
-      console.error(e);
-    } finally {
+  try {
+    // 1️⃣ Try loading JSON file first
+    const fileRes = await fetch("/data/all_packages.json");
+
+    if (fileRes.ok) {
+      const fileData = await fileRes.json();
+
+      const list = fileData.data || [];
+
+      // 🔍 Search filter
+      const filtered = list.filter((item: any) =>
+        item.title.toLowerCase().includes(search.toLowerCase())
+      );
+
+      const limit = 9; // frontend limit
+      const start = (pageNum - 1) * limit;
+      const paginated = filtered.slice(start, start + limit);
+
+      setPackages(paginated);
+      setTotal(filtered.length);
+      setLimit(limit);
+      setTotalPages(Math.ceil(filtered.length / limit));
+
       setLoading(false);
+      return; // File load hogya → api ki zaroorat nahi
     }
-  };
+
+    throw new Error("Failed to load from file");
+  } catch (fileErr) {
+    console.warn("File not found — calling API...", fileErr);
+  }
+
+  // 2️⃣ Fallback → API call
+  try {
+    const res = await fetchTourPackages({ page: pageNum, search });
+
+    if (res.success) {
+      setPackages(res.data || []);
+      setTotal(res.total || 0);
+      setLimit(res.limit || 9);
+      setTotalPages(res.totalPages || 1);
+    } else {
+      toast.error(res.message || "Failed to fetch packages");
+    }
+  } catch (apiErr) {
+    console.error(apiErr);
+    toast.error("Failed to load packages");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     loadPackages();
@@ -170,7 +205,7 @@ const PackagesPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-orange-500 to-red-500">
+      <section className="relative py-10 bg-gradient-to-r from-orange-500 to-red-500">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 text-center text-white relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-6">
