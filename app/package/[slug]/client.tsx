@@ -197,7 +197,7 @@ const ToursListingPage = () => {
       <Header />
       
       {/* Hero Section */}
-      <section className="relative py-20 bg-gradient-to-r from-blue-600 to-purple-700">
+      <section className="relative py-10 bg-gradient-to-r from-blue-600 to-purple-700">
         <div className="absolute inset-0 bg-black/20"></div>
         <div className="container mx-auto px-4 text-center text-white relative z-10">
           <h1 className="text-4xl md:text-6xl font-bold mb-4">
