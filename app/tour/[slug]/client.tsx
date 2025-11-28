@@ -22,6 +22,8 @@ import { useEffect, useState } from "react";
 import api, { fetchTourDetails } from "@/lib/api";
 import { Skeleton } from "components/ui/skeleton"; // ✅ shadcn Skeleton component
 import axios from "axios";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogPortal, DialogTitle } from "@/components/ui/dialog";
+import { AlertDialogHeader } from "@/components/ui/alert-dialog";
 
 const TourDetail = () => {
   const { slug } = useParams();
@@ -29,14 +31,38 @@ const TourDetail = () => {
   const [loading, setLoading] = useState(true);
   const [destinations, setDestinations] = useState<any>();
   const [loadingDestinations, setLoadingDestinations] = useState(false);
+  const [openImage, setOpenImage] = useState(false);
+const [activeImage, setActiveImage] = useState("");
+
 
 
   const loadTour = async () => {
     try {
+
+      const jsonRes=await fetch("/data/all_tours.json");
+      if(!jsonRes.ok) throw new Error("Tours JSON not found");
+      const toursData=await jsonRes.json();
+      const allTours=toursData.data || [] ;
+
+      const matchedTour=allTours.find((t:any)=>t.slug===slug);
+
+      if(!matchedTour){
+        throw new Error("Tour not found in JSON");
+      }
+      setTour(matchedTour);
+      setLoading(false);
+      // console.log("Tour data from JSON:", matchedTour);
+      return; // Stop here, no API call needed
+    }
+    catch (jsonError) {
+      console.error("Error loading tour from JSON:", jsonError);
+    }
+
+    try{
       const res = await fetchTourDetails(String(slug));
       if (res.success) {
         setTour(res.data);
-        console.log("Tour data:", res.data);
+        // console.log("Tour data:", res.data);
       }
     } catch (err) {
       console.error("Error loading tour:", err);
@@ -48,6 +74,19 @@ const TourDetail = () => {
   const loadDestinations = async () => {
     if (!tour?.destinationIds || tour.destinationIds.length === 0) return;
 
+    try {
+      const jsonRes=await fetch("/data/all_destinations.json");
+      if(!jsonRes.ok) throw new Error("Destinations JSON not found");
+      const destinationsData=await jsonRes.json();
+      const allDestinations=destinationsData.data || [] ;
+      const matchedDestinations=allDestinations.filter((dest:any)=>tour.destinationIds.includes(dest._id));
+      setDestinations(matchedDestinations);
+      // console.log("Destinations from JSON:", matchedDestinations);
+      return; // Stop here, no API call needed
+    }
+    catch (jsonError) {
+      console.error("Error loading destinations from JSON:", jsonError);
+    }
     try {
       setLoadingDestinations(true);
 
@@ -210,23 +249,52 @@ const TourDetail = () => {
                     ))}
                   </TabsContent>
 
-                  <TabsContent value="gallery">
-                    <h3 className="text-2xl font-bold mb-6">Photo Gallery</h3>
-                    <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
-                      {tour.gallery?.map((img: string, i: number) => (
-                        <div
-                          key={i}
-                          className="aspect-square overflow-hidden rounded-lg group cursor-pointer"
-                        >
-                          <img
-                            src={img}
-                            alt=""
-                            className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
-                          />
-                        </div>
-                      ))}
-                    </div>
-                  </TabsContent>
+                 <TabsContent value="gallery">
+  <h3 className="text-2xl font-bold mb-6">Photo Gallery</h3>
+
+  <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
+    {tour.gallery?.map((img: string, i: number) => (
+      <div
+        key={i}
+        className="aspect-square overflow-hidden rounded-lg group cursor-pointer"
+        onClick={() => {
+          setActiveImage(img);   
+          setOpenImage(true);    
+        }}
+      >
+        <img
+          src={img}
+          alt=""
+          className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+        />
+      </div>
+    ))}
+
+  </div>
+    <Dialog open={openImage} onOpenChange={setOpenImage}>
+  <DialogPortal>
+    <DialogContent
+      className="max-w-5xl  p-0 text-red-500 font-extrabold border-none"
+      style={{ maxHeight: "90vh" }}
+    >
+
+      {/* Required for accessibility (Hidden Title) */}
+      <DialogHeader className="sr-only">
+        <DialogTitle>Image Preview</DialogTitle>
+        <DialogDescription>Large view of selected image</DialogDescription>
+      </DialogHeader>
+
+      <img
+        src={activeImage}
+        alt="Big preview"
+        className="w-full h-auto max-h-[90vh] object-contain rounded"
+      />
+    </DialogContent>
+  </DialogPortal>
+</Dialog>
+
+</TabsContent>
+
 
                   <TabsContent value="included">
                     {/* Included Section */}

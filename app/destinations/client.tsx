@@ -76,7 +76,7 @@ const loadDestinations = async (search = "", pageNum = 1) => {
 
     if (fileRes.ok) {
       const fileData = await fileRes.json();
-      console.log("Loaded from FILE:", fileData);
+      // console.log("Loaded from FILE:", fileData);
 
       const list = fileData.data || [];
 
@@ -107,7 +107,7 @@ const loadDestinations = async (search = "", pageNum = 1) => {
       const res = await fetchDestinations({ page: pageNum, search });
 
       if (res.success) {
-        console.log("Loaded from API:", res);
+        // console.log("Loaded from API:", res);
 
         setDestinations(res.data || []);
         setTotalPages(res.pagination?.totalPages || 1);

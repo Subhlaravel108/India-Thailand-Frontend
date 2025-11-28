@@ -64,29 +64,109 @@ const ToursListingPage = () => {
   const [totalPages, setTotalPages] = useState(1);
   const [total, setTotal] = useState(0);
 
-  console.log("slug=", slug);
+  // console.log("slug=", slug);
 
   const loadTours = async (search = "", pageNum = 1) => {
-    setLoading(true);
-    try {
-      const res = await fetchTourByDestination({ SlugOrId: slug, search, page: pageNum });
-      if (res.success) {
-        setTours(res.data || []);
+  setLoading(true);
 
-        setPackageName(res.package || "Tour Package");
-        setTotalPages(res.totalPages || 1);
-        setTotal(res.total || 0);
-      } else {
-        setTours([]);
-        toast.error(res.message || "Failed to fetch tours");
-      }
-    } catch (e) {
-      toast.error("Failed to load tours");
-      console.error(e);
-    } finally {
-      setLoading(false);
+  try {
+    // ----------------------------------------------------
+    // 1️⃣ Load DESTINATIONS JSON → get destinationId
+    // ----------------------------------------------------
+    const destRes = await fetch("/data/all_destinations.json");
+
+    if (!destRes.ok) throw new Error("Destination JSON not found");
+
+    const destData = await destRes.json();
+    const destinations = destData.data || [];
+
+    // Find destination by slug
+    const matchedDestination = destinations.find(
+      (d:any) => d.slug === slug
+    );
+
+    if (!matchedDestination) {
+      throw new Error("Destination not found in JSON");
     }
-  };
+
+    const destinationId = matchedDestination._id; // ⭐ ID mil gayi
+
+
+    // ----------------------------------------------------
+    // 2️⃣ Load TOURS JSON → filter by destinationId
+    // ----------------------------------------------------
+    const tourRes = await fetch("/data/all_tours.json");
+
+    if (!tourRes.ok) throw new Error("Tours JSON not found");
+
+    const tourData = await tourRes.json();
+    const allTours = tourData.data || [];
+
+    // Filter → Only tours related to this destination
+    const filteredTours = allTours.filter((tour:any) =>
+      tour.destinationIds?.includes(destinationId)
+    );
+
+    // ----------------------------------------------------
+    // 3️⃣ Apply SEARCH filter
+    // ----------------------------------------------------
+    const searchFiltered = search
+      ? filteredTours.filter((tour:any) =>
+          tour.title.toLowerCase().includes(search.toLowerCase())
+        )
+      : filteredTours;
+
+    // ----------------------------------------------------
+    // 4️⃣ Pagination setup
+    // ----------------------------------------------------
+    const perPage = 9 ;
+    const start = (pageNum - 1) * perPage;
+    const pageTours = searchFiltered.slice(start, start + perPage);
+
+    // ----------------------------------------------------
+    // 5️⃣ Set all states
+    // ----------------------------------------------------
+    setTours(pageTours);
+    setTotal(searchFiltered.length);
+    setTotalPages(Math.ceil(searchFiltered.length / perPage));
+    setPackageName(matchedDestination.title + " Tours" || "Tours");
+    console.log("Loaded from LOCAL JSON");
+    setLoading(false)
+    return;
+  } catch (error) {
+    console.warn("JSON load failed → Trying API fallback...");
+  }
+
+  // ----------------------------------------------------
+  // 6️⃣ API fallback (if JSON loading fails)
+  // ----------------------------------------------------
+  try {
+    const res = await fetchTourByDestination({
+      SlugOrId: slug,
+      search,
+      page: pageNum,
+    });
+
+    if (res.success) {
+      setTours(res.data);
+      console.log(res)
+      setTotal(res.total);
+      setTotalPages(res.totalPages);
+      setPackageName(res.destination.title + " Tours" || "Tours");
+      console.log("Loaded from API");
+    } else {
+      setTours([]);
+      toast.error(res.message || "Failed to fetch tours");
+    }
+  } catch (err) {
+    console.error(err);
+    toast.error("API failed as well");
+  } finally {
+    
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (slug) {
@@ -181,14 +261,7 @@ const ToursListingPage = () => {
     return html?.replace(/<[^>]*>/g, '') || 'Explore this amazing tour and create unforgettable memories.';
   };
 
-  // Format price with currency
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('en-IN', {
-      style: 'currency',
-      currency: 'INR',
-      maximumFractionDigits: 0
-    }).format(price);
-  };
+ 
 
   // Helper to check if field has value and should be shown
   const shouldShowField = (value: any) => {

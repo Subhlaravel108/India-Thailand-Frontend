@@ -64,26 +64,103 @@ const ToursListingPage = () => {
 
   // console.log("slug=", slug);
 
-  const loadTours = async (search = "", pageNum = 1) => {
-    setLoading(true);
-    try {
-      const res = await fetchTourByPackage({ SlugOrId: slug, search, page: pageNum });
-      if (res.success) {
-        setTours(res.tours || []);
-        setPackageName(res.package || "Tour Package");
-        setTotalPages(res.totalPages || 1);
-        setTotal(res.total || 0);
-      } else {
-        setTours([]);
-        toast.error(res.message || "Failed to fetch tours");
-      }
-    } catch (e) {
-      toast.error("Failed to load tours");
-      console.error(e);
-    } finally {
-      setLoading(false);
+ const loadTours = async (search = "", pageNum = 1) => {
+  setLoading(true);
+
+  try {
+    // ----------------------------------------------
+    // 1️⃣ Load PACKAGES JSON → get packageId by slug
+    // ----------------------------------------------
+    const pkgRes = await fetch("/data/all_packages.json");
+
+    if (!pkgRes.ok) throw new Error("Packages JSON not found");
+
+    const pkgData = await pkgRes.json();
+    const packages = pkgData.data || [];
+
+    // Find package by slug
+    const matchedPackage = packages.find((p:any) => p.slug === slug);
+
+    if (!matchedPackage) {
+      throw new Error("Package not found in JSON");
     }
-  };
+
+    const packageId = matchedPackage._id;
+    setPackageName(matchedPackage.title || "Tour Package");
+
+    // ----------------------------------------------
+    // 2️⃣ Load TOURS JSON → filter by packageId
+    // ----------------------------------------------
+    const tourRes = await fetch("/data/all_tours.json");
+
+    if (!tourRes.ok) throw new Error("Tours JSON not found");
+
+    const tourData = await tourRes.json();
+    const allTours = tourData.data || [];
+
+    // Filter tours that match this package ID
+    const filteredTours = allTours.filter((tour:any) =>
+      tour.packageId === packageId
+    );
+
+    // ----------------------------------------------
+    // 3️⃣ Apply SEARCH filter
+    // ----------------------------------------------
+    const searchFiltered = search
+      ? filteredTours.filter((tour:any) =>
+          tour.title.toLowerCase().includes(search.toLowerCase())
+        )
+      : filteredTours;
+
+    // ----------------------------------------------
+    // 4️⃣ Pagination
+    // ----------------------------------------------
+    const limit = 9;
+    const start = (pageNum - 1) * limit;
+    const pageData = searchFiltered.slice(start, start + limit);
+
+    // ----------------------------------------------
+    // 5️⃣ Update state
+    // ----------------------------------------------
+    setTours(pageData);
+    setTotal(searchFiltered.length);
+    setTotalPages(Math.ceil(searchFiltered.length / limit));
+
+    console.log("Loaded from JSON");
+    setLoading(false)
+    return; // Stop here, no API call needed
+  } catch (error) {
+    console.warn("JSON failed → API fallback...");
+  }
+
+  // ------------------------------------------------------
+  // 6️⃣ API fallback (only when JSON is missing or fails)
+  // ------------------------------------------------------
+  try {
+    const res = await fetchTourByPackage({
+      SlugOrId: slug,
+      search,
+      page: pageNum,
+    });
+
+    if (res.success) {
+      setTours(res.tours || []);
+      setPackageName(res.package || "Tour Package");
+      setTotalPages(res.totalPages || 1);
+      setTotal(res.total || 0);
+      // console.log("loaded from api")
+    } else {
+      setTours([]);
+      toast.error(res.message || "Failed to fetch tours");
+    }
+  } catch (e) {
+    toast.error("Failed to load tours");
+    console.error(e);
+  } finally {
+    setLoading(false);
+  }
+};
+
 
   useEffect(() => {
     if (slug) {

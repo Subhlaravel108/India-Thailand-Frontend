@@ -1,0 +1,473 @@
+{
+  "success": true,
+  "message": "Tours JSON downloaded",
+  "pagination": {
+    "page": 1,
+    "limit": 9,
+    "total": 7,
+    "totalPages": 1
+  },
+  "data": [
+    {
+      "_id": "6927cc2870253609b5c17c8d",
+      "title": "Bali Adventure & Water Sports Tour",
+      "slug": "bali-adventure-and-water-sports-tour",
+      "meta_title": "Bali Adventure Tour – Water Sports & Volcano Trip",
+      "meta_description": "Experience Bali’s thrilling adventures with Nusa Dua water sports, volcano sightseeing, beaches & temples.",
+      "meta_keywords": "Bali adventure, water sports bali, volcano tour",
+      "itinerary": [
+        {
+          "title": "Day 1",
+          "detail": "<p>Arrival</p>"
+        },
+        {
+          "title": "Day 2",
+          "detail": "<p>Water Sports</p>"
+        },
+        {
+          "title": "Day 3",
+          "detail": "<p>Volcano Tour</p>"
+        },
+        {
+          "title": "Day 4",
+          "detail": "<p>Ubud + Waterfall</p>"
+        },
+        {
+          "title": "Day 5",
+          "detail": "<p>Seminyak Beaches</p>"
+        },
+        {
+          "title": "Day 6",
+          "detail": "<p>Departure</p>"
+        }
+      ],
+      "shortDescription": "<p>An exciting Bali trip with water sports, volcano views, markets, beaches, and cultural experiences.</p>",
+      "description": "<p>Designed for adventure lovers, this Bali tour includes thrilling water sports like jet skiing, parasailing, banana boat, and snorkeling in Nusa Dua.</p><p> Explore the beautiful <strong>Kintamani Volcano</strong>, Ubud temples, local art markets, and Balinese cultural spots.</p><p> A perfect mixture of thrill, beauty, and fun.</p>",
+      "featureImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764215663/tours_app_uploads/psx5i4snzxwxmxdl3zax.jpg",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764215701/tours_app_uploads/fn9xjvnmx0ri5tbwdscr.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764215727/tours_app_uploads/zu41qjhw3j4ffn5xfbur.jpg"
+      ],
+      "tour_duration": "5 days, 4 nights",
+      "price": 50000,
+      "people": "2-3",
+      "countries": "Bali",
+      "hotelType": "4 Star Resort",
+      "travelInsuranceIncluded": true,
+      "included": [
+        "Daily Breakfast",
+        "Water Sports",
+        "Private Transport",
+        "Hotel Stay"
+      ],
+      "notIncluded": [
+        "Dinner",
+        "Flights",
+        "Shopping"
+      ],
+      "status": "Active",
+      "packageId": "6911ad888ba2963f27b68907",
+      "destinationIds": [
+        "69119395711280d4e4c55b06",
+        "6911aa1c8ba2963f27b68904"
+      ],
+      "createdAt": "2025-11-27T03:57:28.983Z"
+    },
+    {
+      "_id": "6926e337da3bf15c27da41bb",
+      "title": "Bali Luxury Beach Retreat – Seminyak & Canggu",
+      "slug": "bali-luxury-beach-retreat-seminyak-and-canggu",
+      "meta_title": "Bali Luxury Retreat – Private Pool Villa Tour",
+      "meta_description": "Enjoy Bali’s finest villas, beaches, sunsets, and luxury lifestyle.",
+      "meta_keywords": "Luxury bali, canggu villa, bali expensive trip",
+      "itinerary": [
+        {
+          "title": "Day 1",
+          "detail": "<p>Arrival + Villa Stay</p>"
+        },
+        {
+          "title": "Day 2",
+          "detail": "<p>Beach Club Day</p>"
+        },
+        {
+          "title": "Day 3",
+          "detail": "<p>Spa + Shopping</p>"
+        },
+        {
+          "title": "Day 4",
+          "detail": "<p>Seminyak Day Tour</p>"
+        },
+        {
+          "title": "Day 5",
+          "detail": "<p>Sunset Dinner</p>"
+        },
+        {
+          "title": "Day 6",
+          "detail": "<p>Departure</p>"
+        }
+      ],
+      "shortDescription": "<p>A premium Bali retreat featuring private villas, infinity pools, beach clubs, and a lavish coastal experience.</p>",
+      "description": "<p>Indulge in Bali’s luxurious lifestyle with private pool villas, gourmet dining, spa sessions, ocean-view lounges, and stylish nightlife.</p><p> Stay in the upscale area of <strong>Canggu</strong> and <strong>Seminyak</strong>, known for trendy cafés, scenic sunset points, and premium boutiques.</p><p> Perfect for luxury travelers and honeymooners.</p>",
+      "featureImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764156049/tours_app_uploads/mmwajmakpuq9jtv8ltt8.jpg",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764156086/tours_app_uploads/hfij8nhi0ervleebvck1.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764156088/tours_app_uploads/ktpnpm82ldyrcidbdvjh.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764156086/tours_app_uploads/s5niveq5qdym4m2diqpe.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764156091/tours_app_uploads/gx8q6cpgbxys7kiuagfi.jpg"
+      ],
+      "tour_duration": "5 days, 4 nights",
+      "price": 72000,
+      "people": "2-3",
+      "countries": "Bali, Indonesia",
+      "hotelType": "Luxury Villa",
+      "travelInsuranceIncluded": true,
+      "included": [
+        "Breakfast",
+        "Spa Session",
+        "Sunset Dinner",
+        "Private Transfers"
+      ],
+      "notIncluded": [
+        "Flights",
+        "Lunch",
+        "Alcohol"
+      ],
+      "status": "Active",
+      "packageId": "6911ad888ba2963f27b68907",
+      "destinationIds": [
+        "6911aafb8ba2963f27b68905",
+        "6911aa1c8ba2963f27b68904"
+      ],
+      "createdAt": "2025-11-26T11:23:35.735Z"
+    },
+    {
+      "_id": "6926e17eda3bf15c27da41ba",
+      "title": "Bali Island Paradise Tour – Ubud & Seminyak",
+      "slug": "bali-island-paradise-tour-ubud-and-seminyak",
+      "meta_title": "Best Bali Tour – Ubud Seminyak Island Paradise",
+      "meta_description": "Discover Bali’s magical rice terraces, waterfalls, beaches, temples, and cultural beauty.",
+      "meta_keywords": "Bali package, Ubud tour, Seminyak tour, Bali honeymoon",
+      "itinerary": [
+        {
+          "title": "Day 1",
+          "detail": "<p>Arrival + Ubud Tour</p>"
+        },
+        {
+          "title": "Day 2",
+          "detail": "<p>Rice Terrace + Waterfall</p>"
+        },
+        {
+          "title": "Day 3",
+          "detail": "<p>Temple Tour</p>"
+        },
+        {
+          "title": "Day 4",
+          "detail": "<p>Transfer to Seminyak</p>"
+        },
+        {
+          "title": "Day 5",
+          "detail": "<p>&nbsp;Beach Day + Cafes</p>"
+        },
+        {
+          "title": "Day 6",
+          "detail": "<p>Departure</p>"
+        }
+      ],
+      "shortDescription": "<p>A magical Bali escape that includes Ubud’s jungle charm and Seminyak’s beaches, nightlife, and markets.</p>",
+      "description": "<p>Experience the best of Bali with a perfect blend of culture, adventure, and island luxury.</p><p> Explore the serenity of <strong>Tegallalang Rice Terrace</strong>, <strong>Ubud Monkey Forest</strong>, and scenic Balinese temples.</p><p> Continue to <strong>Seminyak</strong>, famous for beaches, premium restaurants, sunset cafés, and shopping streets.</p><p> This tour is ideal for honeymooners, families, and solo explorers.</p>",
+      "featureImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155628/tours_app_uploads/x4ccva2pjc8lw8dlez2j.jpg",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155667/tours_app_uploads/socp0r2avfatcmxbdvjw.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155663/tours_app_uploads/s71o2bvctdbmpl8zq5jx.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155660/tours_app_uploads/sbvm9vfhm2nrlw9wheng.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155660/tours_app_uploads/zylcyfvwju7ndjcajeri.jpg"
+      ],
+      "tour_duration": "5 days, 4 nights",
+      "price": 50000,
+      "people": "3-5",
+      "countries": "Bali, Indonesia",
+      "hotelType": "4 Star",
+      "travelInsuranceIncluded": true,
+      "included": [
+        "Breakfast",
+        "Ubud Tour",
+        "Private Cab",
+        "Hotel Stays"
+      ],
+      "notIncluded": [
+        "Flights",
+        "Lunch",
+        "Shopping Expenses"
+      ],
+      "status": "Active",
+      "packageId": "6911ad888ba2963f27b68907",
+      "destinationIds": [
+        "69119395711280d4e4c55b06",
+        "6911aa1c8ba2963f27b68904"
+      ],
+      "createdAt": "2025-11-26T11:16:14.548Z"
+    },
+    {
+      "_id": "6926dfc3da3bf15c27da41b9",
+      "title": "Chiang Mai & Chiang Rai Cultural Tour",
+      "slug": "chiang-mai-and-chiang-rai-cultural-tour",
+      "meta_title": "Chiang Mai Chiang Rai Culture Tour – Northern Thailand Heritage Trip",
+      "meta_description": "Discover Northern Thailand with its ancient temples, mountain views, and cultural attractions.",
+      "meta_keywords": "Chiang Mai tour, Chiang Rai package, culture tour Thailand",
+      "itinerary": [
+        {
+          "title": "Day 1",
+          "detail": "<p>Arrival in Chiang Mai</p>"
+        },
+        {
+          "title": "Day 2",
+          "detail": "<p>Temple Tour + Doi Suthep</p>"
+        },
+        {
+          "title": "Day 3",
+          "detail": "<p>Handicraft Village + Market</p>"
+        },
+        {
+          "title": "Day 4",
+          "detail": "<p>Transfer to Chiang Rai</p>"
+        },
+        {
+          "title": "Day 5",
+          "detail": "<p>White Temple &amp; Golden Triangle</p>"
+        },
+        {
+          "title": "Day 6",
+          "detail": "<p>Departure</p>"
+        }
+      ],
+      "shortDescription": "<p>A peaceful journey through Northern Thailand’s spiritual beauty, mountain temples, and traditional markets.</p>",
+      "description": "<p>This cultural tour lets you explore Thailand’s northern gems — <strong>Chiang Mai</strong> and <strong>Chiang Rai</strong>.</p><p> Begin in Chiang Mai with temple visits, Doi Suthep mountain, cultural markets, and handicraft villages.</p><p> Move to Chiang Rai for White Temple, Blue Temple, Golden Triangle, and nature-filled day trips.</p><p> A soulful and scenic escape.</p>",
+      "featureImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155200/tours_app_uploads/kbqfoasi0kuq3ks7bpfo.jpg",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155231/tours_app_uploads/a7wgmh3al2kkumc3jwck.avif",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155231/tours_app_uploads/zfk8opkvkmuvhplfmw5v.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764155231/tours_app_uploads/xbz6mcdh8ydnelzqgqrp.webp"
+      ],
+      "tour_duration": "5 days, 4 nights",
+      "price": 40000,
+      "people": "3-4",
+      "countries": "Thailand",
+      "hotelType": "4 Star",
+      "travelInsuranceIncluded": true,
+      "included": [
+        "Daily Breakfast",
+        "Temple Entry",
+        "Private Transport",
+        "Hotel Stay"
+      ],
+      "notIncluded": [
+        "Flights",
+        "Alcohol",
+        "Dinner"
+      ],
+      "status": "Active",
+      "packageId": "6911acad8ba2963f27b68906",
+      "destinationIds": [
+        "69119160711280d4e4c55b05"
+      ],
+      "createdAt": "2025-11-26T11:08:51.204Z"
+    },
+    {
+      "_id": "6926cd7d1e6c08dd881ff390",
+      "title": "Phuket Krabi Island Adventure Tour",
+      "slug": "phuket-krabi-island-adventure-tour",
+      "meta_title": "Phuket Krabi Adventure – Thailand Beach & Island Tour",
+      "meta_description": "Explore Thailand’s finest beaches and islands with this Phuket and Krabi adventure package.",
+      "meta_keywords": "Phuket tour, Krabi tourism, island tour Thailand",
+      "itinerary": [
+        {
+          "title": "Day 1",
+          "detail": "<p>&nbsp;Arrival in Phuket</p>"
+        },
+        {
+          "title": "Day 2",
+          "detail": "<p>Phi Phi Island Tour</p>"
+        },
+        {
+          "title": "Day 3",
+          "detail": "<p>Phuket Beaches + City Tour</p>"
+        },
+        {
+          "title": "Day 4",
+          "detail": "<p>Transfer to Krabi</p>"
+        },
+        {
+          "title": "Day 5",
+          "detail": "<p>Four Island Tour</p>"
+        },
+        {
+          "title": "Day 6",
+          "detail": "<p>Departure</p>"
+        }
+      ],
+      "shortDescription": "<p>A paradise trip through the crystal-clear beaches, limestone cliffs, and turquoise lagoons of Phuket and Krabi. Perfect for beach lovers and adventure seekers.</p>",
+      "description": "<p>This tour brings you to Thailand’s natural wonders — <strong>Phuket</strong> and <strong>Krabi</strong>, known for their dreamy beaches and unbelievable landscapes.</p><p> Explore <strong>Phi Phi Island</strong>, witness the spectacular Maya Bay, swim in emerald waters, and discover hidden caves and lagoons.</p><p> In Krabi, be mesmerized by Railay Beach, Ao Nang streets, and beautiful sunset points.</p>",
+      "featureImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764150427/tours_app_uploads/zyueud8mannr0wfpesdg.avif",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764150485/tours_app_uploads/tjrjchrarisv5ezspffr.webp",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764150452/tours_app_uploads/x9vpdv2xvektch9qxyhx.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764150468/tours_app_uploads/skntcbtndjdfduuzdfxf.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764150550/tours_app_uploads/ynha0uuvvuzumlzhgvcj.jpg"
+      ],
+      "tour_duration": "5 days, 4 nights",
+      "price": 45000,
+      "people": "2-3",
+      "countries": "Thailand",
+      "hotelType": "4 Star",
+      "travelInsuranceIncluded": true,
+      "included": [
+        "Breakfast",
+        "Phi Phi Tour",
+        "Four Island Tour",
+        "Private Car Transfers"
+      ],
+      "notIncluded": [
+        "Personal Expenses",
+        "Lunch & Dinner",
+        "Entry Fees"
+      ],
+      "status": "Active",
+      "packageId": "6911acad8ba2963f27b68906",
+      "destinationIds": [
+        "6911a5e48ba2963f27b68902",
+        "6911a8918ba2963f27b68903"
+      ],
+      "createdAt": "2025-11-26T09:50:53.868Z"
+    },
+    {
+      "_id": "6926c9fe1e6c08dd881ff38f",
+      "title": "Thailand City Explorer",
+      "slug": "thailand-city-explorer",
+      "meta_title": "Bangkok & Pattaya Tour",
+      "meta_description": "Explore Bangkok and Pattaya with city tours, beaches and nightlife.",
+      "meta_keywords": "thailand tour, bangkok, pattaya, city tour",
+      "itinerary": [
+        {
+          "title": "Day 1",
+          "detail": "<p>Arrival in Bangkok, City Tour</p>"
+        },
+        {
+          "title": "Day 2",
+          "detail": "<p> Temple Tour &amp; Floating Market</p>"
+        },
+        {
+          "title": "Day 3",
+          "detail": "<p>Transfer to Pattaya, Beach Time</p>"
+        },
+        {
+          "title": "Day 4",
+          "detail": "<p>Coral Island Tour &amp; Water Sports</p>"
+        },
+        {
+          "title": "Day 5",
+          "detail": "<p>Return to Bangkok, Shopping</p>"
+        },
+        {
+          "title": "Day 6",
+          "detail": "<p>Departure</p>"
+        }
+      ],
+      "shortDescription": "<p>Experience the vibrant charm of Bangkok’s cultural wonders combined with the sunny beaches and thrilling nightlife of Pattaya. A perfect blend of temples, markets, sea adventures, and unforgettable memories.</p>",
+      "description": "<p>This Thailand City Explorer Tour takes you into the heart of Thailand’s two most iconic destinations — <strong>Bangkok</strong> and <strong>Pattaya</strong>.</p><p> Your journey begins in Bangkok, the bustling city of golden temples, royal palaces, floating markets, and aromatic street food. Visit the famous <strong>Wat Arun, Wat Pho, Grand Palace</strong>, and enjoy a boat ride along the Chao Phraya River.</p><p>Then travel to <strong>Pattaya</strong>, known for its sparkling beaches, thrilling water activities, and Coral Island excursions. Enjoy serene coastal walks, parasailing, banana boat rides, and Pattaya’s lively nightlife.</p><p> A perfect package for couples, families, and groups.</p>",
+      "featureImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764149491/tours_app_uploads/usxbb4i5r2ezpuyjbomk.jpg",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764149599/tours_app_uploads/h2l2l976b7uihm2977hm.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764149610/tours_app_uploads/o7vevhguq9nrptuozxot.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1764149626/tours_app_uploads/xzuqpuowvp8zbp3vqlxa.jpg"
+      ],
+      "tour_duration": "5 days, 4 nights",
+      "price": 38000,
+      "people": "2-3",
+      "countries": "Thailand",
+      "hotelType": "4 star",
+      "travelInsuranceIncluded": true,
+      "included": [
+        "Daily Breakfast",
+        "Bangkok Temple Tour",
+        "Coral Island Transfer",
+        "Hotel Accommodation"
+      ],
+      "notIncluded": [
+        "Flight Tickets",
+        "Personal Expenses",
+        "Lunch & Dinner"
+      ],
+      "status": "Active",
+      "packageId": "6911acad8ba2963f27b68906",
+      "destinationIds": [
+        "6911b0028ba2963f27b68908"
+      ],
+      "createdAt": "2025-11-26T09:35:58.377Z"
+    },
+    {
+      "_id": "6923e5684c221e42c8fd5c21",
+      "title": "Thailand Premium Explorer Tour",
+      "slug": "thailand-premium-explorer-tour",
+      "meta_title": "Thailand Premium Tour – Bangkok, Phuket & Krabi | Best Thailand Package",
+      "meta_description": "Explore Thailand with our Premium Tour covering Bangkok, Phuket, and Krabi. Includes hotels, sightseeing, insurance, and all major attractions.",
+      "meta_keywords": "Thailand tour, Bangkok tour, Phuket tour, Krabi package, Thailand holidays, Thailand premium trip",
+      "itinerary": [
+        {
+          "title": "Day 1",
+          "detail": "<p>Airport Pickup → Hotel Check-in → Evening Chao Phraya River Cruise → Dinner.</p>"
+        },
+        {
+          "title": "Day 2",
+          "detail": "<p>Visit Golden Buddha Temple, Marble Temple, and Floating Market → Shopping at Platinum Mall.</p>"
+        },
+        {
+          "title": "Day 3",
+          "detail": "<p>Flight to Phuket → Hotel Check-in → Patong Beach → Night Market.</p>"
+        },
+        {
+          "title": "Day 4",
+          "detail": "<p>Full-day speedboat tour → Maya Bay → Monkey Beach → Lunch Included.</p>"
+        },
+        {
+          "title": "Day 5",
+          "detail": "<p>Breakfast → Airport drop for return flight.</p>"
+        }
+      ],
+      "shortDescription": "<p>Explore Thailand with our Premium Tour covering Bangkok, Phuket, and Krabi. Includes hotels, sightseeing, insurance, and all major attractions.</p>",
+      "description": "<p>This Thailand Premium Explorer Tour offers a perfect blend of culture, beaches, nightlife, and adventure. From the vibrant streets of Bangkok to the serene beaches of Phuket and the majestic limestone cliffs of Krabi, this package gives you an unforgettable Thailand experience. Enjoy guided tours, premium hotels, delicious meals, and smooth transfers throughout your journey.</p>",
+      "featureImage": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1763959815/tours_app_uploads/rn27fr9gaoegsd9wzk6g.avif",
+      "gallery": [
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1763959865/tours_app_uploads/z2m1xdk9femmhr6fur6b.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1763959975/tours_app_uploads/tojvubhxeyj03sbdm2tj.jpg",
+        "https://res.cloudinary.com/do6ckqkq5/image/upload/v1763959940/tours_app_uploads/wtkutryvacyk3z4hx17i.jpg"
+      ],
+      "tour_duration": "5 days, 4 nights",
+      "price": 35999,
+      "people": "2-3",
+      "countries": "Thailand",
+      "hotelType": "4 Star",
+      "travelInsuranceIncluded": true,
+      "included": [
+        "Daily Breakfast",
+        "Airport Transfers",
+        "Phi Phi Island Tour",
+        "Bangkok City Tour",
+        "Travel Insurance"
+      ],
+      "notIncluded": [
+        "Flight Tickets",
+        "Visa Fees",
+        "Personal Expenses"
+      ],
+      "status": "Active",
+      "packageId": "6911acad8ba2963f27b68906",
+      "destinationIds": [
+        "6911b0028ba2963f27b68908",
+        "6911a8918ba2963f27b68903",
+        "6911a5e48ba2963f27b68902"
+      ],
+      "createdAt": "2025-11-24T04:56:08.641Z",
+      "updatedAt": "2025-11-26T09:24:17.020Z"
+    }
+  ]
+}
