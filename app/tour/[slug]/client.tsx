@@ -386,16 +386,19 @@ const [activeImage, setActiveImage] = useState("");
               <div className="lg:col-span-1">
                 <Card className="sticky top-24 shadow-lg">
                   <CardContent className="p-6">
+                      {tour.price>0 && (
                     <div className="mb-6">
                       <div className="flex items-baseline gap-2 mb-2">
+                        
                         <span className="text-4xl font-bold text-primary">
                           {formatPrice(tour.price)}
                         </span>
                       </div>
                       {/* <p className="text-sm text-muted-foreground">
                         Per person (based on double occupancy)
-                      </p> */}
+                        </p> */}
                     </div>
+                        )}
 
                     <div className="space-y-4 mb-6">
                       <div className="flex items-center gap-3 text-sm">
