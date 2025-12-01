@@ -13,7 +13,7 @@ export async function generateMetadata({ params }: BlogDetailPageProps): Promise
     const { slug } = await params;
     const res = await api.get(`/front/blog/${slug}`);
     const blog = res.data.data;
-  console.log("blog=",blog)
+  // console.log("blog=",blog)
     if (!blog) {
       return {
         title: `Blog Not Found - ${contactInfo.websiteName}`,
