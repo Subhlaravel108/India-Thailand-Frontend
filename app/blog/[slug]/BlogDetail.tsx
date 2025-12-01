@@ -36,36 +36,57 @@ export default function BlogClient({ slug }: BlogClientProps) {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
 
+
   useEffect(() => {
-    const fetchBlog = async () => {
-      try {
-        setLoading(true);
-        setError(null);
-        // console.log("Fetching blog with slug:", slug);
+  const fetchBlog = async () => {
+    setLoading(true);
+    setError(null);
 
-        const res = await api.get(`/front/blog/${slug}`);
+    try {
+      // ---------------------------------
+      // 1️⃣ Try loading from JSON file first
+      // ---------------------------------
+      const jsonRes = await fetch("/data/all_blog.json"); // public/blogs.json
+      const jsonData = await jsonRes.json();
 
-        if (res.data?.success && res.data?.data) {
-          setBlog(res.data.data);
-        } else {
-          setError("Blog data not found");
+      if (jsonData?.data?.length) {
+        const foundBlog = jsonData.data.find((b: any) => b.slug === slug);
+
+        if (foundBlog) {
+          setBlog(foundBlog);
+          setLoading(false);
+          return; // Stop here (No API call needed)
         }
-      } catch (error: any) {
-        console.error("Error fetching blog:", error);
-        setError(
-          error.response?.data?.message ||
-          error.message ||
-          "Failed to load blog post"
-        );
-      } finally {
-        setLoading(false);
       }
-    };
 
-    if (slug) fetchBlog();
-  }, [slug]);
+      // ---------------------------------
+      // 2️⃣ JSON me nahi mila → API fallback
+      // ---------------------------------
+      const apiRes = await api.get(`/front/blog/${slug}`);
 
-  // Calculate read time based on content
+      if (apiRes.data?.success) {
+        setBlog(apiRes.data.data);
+      } else {
+        setError("Blog not found");
+      }
+
+    } catch (error: any) {
+      console.error("Blog fetch error:", error);
+      setError(
+        error.response?.data?.message ||
+        error.message ||
+        "Failed to load blog post"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  if (slug) fetchBlog();
+}, [slug]);
+
+  
+  
   const calculateReadTime = (content: string) => {
     const wordsPerMinute = 200;
     const words = content.replace(/<[^>]*>/g, '').split(/\s+/).length;

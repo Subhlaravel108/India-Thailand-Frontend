@@ -101,7 +101,7 @@ const fetchBlogs = async () => {
       setTotalCount(filtered.length);
       setTotalPages(Math.ceil(filtered.length / limit));
 
-      console.log("Loaded from LOCAL JSON + applied search + pagination");
+      // console.log("Loaded from LOCAL JSON + applied search + pagination");
       setIsLoading(false);
       return; // stop here if JSON successful
     }
@@ -273,6 +273,8 @@ const fetchBlogs = async () => {
                   {blogs.map((blog) => (
                     <Card key={blog._id} className="overflow-hidden hover:shadow-lg transition-shadow border-0 shadow-md h-full flex flex-col">
                       <div className="relative h-48 overflow-hidden">
+                        <Link href={`/blog/${blog.slug || blog._id}`}>
+                        
                         <img
                           src={blog.featuredImage || "/api/placeholder/400/250"}
                           alt={blog.title}
@@ -281,6 +283,7 @@ const fetchBlogs = async () => {
                             e.currentTarget.src = "/api/placeholder/400/250";
                           }}
                         />
+                        </Link>
                         {/* Status Badge */}
                         {blog.status && (
                           <div className="absolute top-3 left-3">
