@@ -9,25 +9,54 @@ const Testimonials = () => {
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState("");
 
-    const fetchFeedback = async () => {
-        try {
-            setLoading(true);
-            setError("");
-            const res = await api.get("/feedback-lists");
-            
-            // Filter only approved feedbacks and ensure they have required fields
-            const approvedFeedbacks = (res.data.data || []).filter((item: any) => 
-                item.status === "approved" && item.message && item.name
-            );
-            
-            setFeedback(approvedFeedbacks);
-        } catch (err) {
-            console.error("Error fetching feedback:", err);
-            setError("Failed to load testimonials");
-        } finally {
-            setLoading(false);
-        }
-    };
+   const fetchFeedback = async () => {
+  try {
+    setLoading(true);
+    setError("");
+
+    let approvedFeedbacks: any[] = [];
+
+    // 1️⃣ Try to load from JSON file first
+    try {
+      const jsonRes = await fetch("/data/feedbacks.json"); 
+      if (jsonRes.ok) {
+        const jsonData = await jsonRes.json();
+
+        // const jsonFeedbacks = (jsonData.data || []).filter(
+        //   (item: any) =>
+        //     item.status === "approved" && item.message && item.name
+        // );
+
+        // if (jsonFeedbacks.length > 0) {
+        //   console.log("Loaded from JSON");
+          approvedFeedbacks = jsonData.data;
+        // }
+      }
+    } catch (err) {
+      console.warn("JSON load failed:", err);
+    }
+
+    // 2️⃣ If JSON DID NOT give approved feedbacks → load from API
+    if (approvedFeedbacks.length === 0) {
+      console.log("JSON empty — loading from API");
+
+      const apiRes = await api.get("/feedback-lists");
+
+      approvedFeedbacks = (apiRes.data.data || []).filter(
+        (item: any) =>
+          item.status === "approved" && item.message && item.name
+      );
+    }
+
+    setFeedback(approvedFeedbacks);
+  } catch (err) {
+    console.error("Error:", err);
+    setError("Failed to load testimonials");
+  } finally {
+    setLoading(false);
+  }
+};
+
 
     useEffect(() => {
         fetchFeedback();

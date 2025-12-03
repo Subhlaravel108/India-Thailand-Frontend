@@ -1,0 +1,40 @@
+{
+  "success": true,
+  "total": 3,
+  "data": [
+    {
+      "_id": "691ebd2fbd522a26ce0dd87b",
+      "name": "krish rathore",
+      "email": "rathorekrish369@gmail.com",
+      "rating": "4",
+      "message": "The trip was great and the staff was very friendly. Flights and hotel check-ins were smooth. I just wish the itinerary had a bit more flexibility.",
+      "phone": "9876543210",
+      "status": "approved",
+      "createdAt": "2025-11-20T07:03:11.939Z",
+      "updatedAt": "2025-11-20T07:03:22.544Z"
+    },
+    {
+      "_id": "691ebd08bd522a26ce0dd87a",
+      "name": "Ravi Prajapat",
+      "email": "raviprajapat80031@gmail.com",
+      "rating": "5",
+      "message": "My experience with Jaipur–Thailand Tours was absolutely excellent. The service, hotel arrangements, and overall support were top-notch. I would highly recommend them!",
+      "phone": "9876543210",
+      "status": "approved",
+      "createdAt": "2025-11-20T07:02:32.805Z",
+      "updatedAt": "2025-11-20T07:03:28.667Z"
+    },
+    {
+      "_id": "691d808d88da1dab41ac36ca",
+      "name": "Ravi Prajapat",
+      "email": "raviprajapat80031@gmail.com",
+      "rating": "1",
+      "message": "ldkfjaslfdkjasdlkfjs",
+      "phone": "9897656451",
+      "image": "https://res.cloudinary.com/do6ckqkq5/image/upload/v1763540873/tours_app_uploads/euktxz6jhdzpzqkj2aqy.jpg",
+      "status": "approved",
+      "createdAt": "2025-11-19T08:32:13.946Z",
+      "updatedAt": "2025-11-19T10:49:30.796Z"
+    }
+  ]
+}
