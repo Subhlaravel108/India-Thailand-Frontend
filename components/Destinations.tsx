@@ -65,7 +65,7 @@ const Destinations = () => {
   }, []);
 
   return (
-    <section id="destinations" className="py-20 bg-gray-50">
+    <section id="destinations" className="py-10 pt-20 bg-white">
       <div className="container mx-auto px-4">
         {/* Header */}
         <div className="text-center mb-16">
@@ -113,12 +113,15 @@ const Destinations = () => {
               >
                 {/* Image */}
                 <div className="relative overflow-hidden flex-shrink-0">
+                  <Link href={`/destinations/${item.slug}`}>
+                  
                   <img
                     src={item.featured_image}
                     alt={item.title}
                     className="w-full h-48 object-cover group-hover:scale-105 transition-transform duration-500"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div>
+                  {/* <div className="absolute inset-0 bg-gradient-to-t from-black/50 to-transparent"></div> */}
+                  </Link>
                 </div>
 
                 {/* Content */}

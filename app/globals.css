@@ -87,18 +87,18 @@
 
 /* NProgress custom style */
 #nprogress .bar {
-  background: white !important; /* progress bar color */
+  background: rgb(246, 63, 63) !important; /* progress bar color */
   height: 2px !important; /* thickness adjust if you want */
 }
 
 /* Spinner (optional): hide or recolor it */
 #nprogress .peg {
-  box-shadow: 0 0 10px white, 0 0 5px white !important;
+  box-shadow: 0 0 10px rgb(235, 106, 106), 0 0 5px rgb(243, 92, 92) !important;
 }
 
 #nprogress .spinner-icon {
-  border-top-color: white !important;
-  border-left-color: white !important;
+  border-top-color: rgb(240, 98, 98) !important;
+  border-left-color: rgb(240, 95, 95) !important;
 }
 
 /* Optional: Hide spinner completely */

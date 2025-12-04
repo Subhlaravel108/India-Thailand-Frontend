@@ -130,11 +130,14 @@ const fetchBlogs = async () => {
             {blogs.map((post) => (
               <Card key={post._id} className="overflow-hidden hover:shadow-lg transition-shadow">
                 <div className="relative h-48 overflow-hidden">
+                  <Link href={`/blog/${post.slug}`}>
+                  
                   <img
                     src={post.featuredImage}
                     alt={post.title}
                     className="w-full h-full object-cover hover:scale-110 transition-transform duration-300"
                   />
+                  </Link>
                 </div>
 
                 <CardContent className="p-6">
