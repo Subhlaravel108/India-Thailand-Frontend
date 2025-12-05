@@ -34,17 +34,51 @@ const BookNow = () => {
   const [packages, setPackages] = useState<any[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
+  const [dataLoading, setDataLoading] = useState(true);
   const [successMsg, setSuccessMsg] = useState("");
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const desRes = await fetchDestinations();
-      const pkgRes = await fetchTourPackages();
-      setDestinations(desRes?.data || []);
-      setPackages(pkgRes?.data || []);
-    };
-    fetchData();
-  }, []);
+useEffect(() => {
+  const fetchData = async () => {
+    setDataLoading(true);
+
+    const desRes = await fetchDestinations();
+    const pkgRes = await fetchTourPackages();
+
+    setDestinations(desRes?.data || []);
+    setPackages(pkgRes?.data || []);
+
+    setDataLoading(false);
+  };
+  fetchData();
+}, []);
+
+
+const BookingSkeleton = () => {
+  return (
+    <div className="max-w-4xl mx-auto animate-pulse">
+      <div className="h-10 bg-gray-300 rounded w-1/3 mb-8"></div>
+
+      <div className="grid md:grid-cols-2 gap-6">
+        {Array(6).fill(0).map((_, i) => (
+          <div key={i} className="space-y-3">
+            <div className="h-4 bg-gray-300 rounded w-1/2"></div>
+            <div className="h-12 bg-gray-300 rounded"></div>
+          </div>
+        ))}
+
+        <div className="md:col-span-2 space-y-3">
+          <div className="h-4 bg-gray-300 rounded w-1/3"></div>
+          <div className="h-24 bg-gray-300 rounded"></div>
+        </div>
+      </div>
+
+      <div className="flex justify-center mt-8">
+        <div className="h-12 w-48 bg-gray-300 rounded-full"></div>
+      </div>
+    </div>
+  );
+};
+
 
 
   const handleChange = (field: string, value: string) => {
@@ -150,7 +184,9 @@ const BookNow = () => {
                   {successMsg}
                 </p>
               )}
-                 <form onSubmit={handleSubmit} className="space-y-6">
+                 { dataLoading ? <BookingSkeleton /> :
+
+                  <form onSubmit={handleSubmit} className="space-y-6">
                   <div className="grid md:grid-cols-2 gap-6">
                     {/* Full Name */}
                     <div className="space-y-2">
@@ -336,7 +372,7 @@ const BookNow = () => {
                       {loading ? "Submitting..." : "Submit Booking Request"}
                     </Button>
                   </div>
-                </form>
+                </form>}
 
                 <div className="mt-8 p-6 bg-blue-50 rounded-lg">
                   <h3 className="font-semibold text-blue-900 mb-2">What happens next?</h3>
