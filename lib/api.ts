@@ -2,6 +2,7 @@ import axios from "axios"
 
 const api=axios.create({
     baseURL:"https://india-thailand-api-8.onrender.com/api"
+    // baseURL:"http://127.0.0.1:3001/api"
 })
 
 export default api
