@@ -67,7 +67,7 @@ const CarRentalsClient = () => {
       setLoading(true);
       const payload = {
         ...formData,
-        serviceType: "Car Rentals"
+        serviceType: "Car Rental"
       };
 
       const res = await api.post('/service', payload);

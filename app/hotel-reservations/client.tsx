@@ -92,7 +92,7 @@ const HotelReservationsClient: React.FC = () => {
     try {
       const payload = {
         ...formData,
-        serviceType: "Hotel Reservations",
+        serviceType: "Hotel Reservation",
         rooms: parseInt(formData.rooms),
         travellers: parseInt(formData.travellers)
       };
