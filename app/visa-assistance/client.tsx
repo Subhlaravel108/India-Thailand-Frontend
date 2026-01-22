@@ -58,7 +58,7 @@ export default function VisaAssistanceClient() {
     try {
       const payload = {
         ...form,
-        serviceType: "visa"
+        serviceType: "Visa Assistance"
       };
 
       const res = await api.post('/service', payload);

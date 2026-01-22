@@ -61,7 +61,7 @@ export default function CustomToursClient() {
     try {
       const payload = {
         ...form,
-        serviceType: "custom",
+        serviceType: "Custom Tours",
         days: parseInt(form.days),
         travellers: parseInt(form.travellers)
       };

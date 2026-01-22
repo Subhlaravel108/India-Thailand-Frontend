@@ -101,7 +101,7 @@ const FlightBookingClient: React.FC = () => {
     try {
       const payload = {
         ...formData,
-        serviceType: "flight",
+        serviceType: "flight booking",
         travellers: parseInt(formData.travellers)
       };
 

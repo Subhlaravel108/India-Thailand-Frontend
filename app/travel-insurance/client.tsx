@@ -63,7 +63,7 @@ export default function TravelInsuranceClient() {
       setLoading(true);
       const payload = {
         ...formData,
-        serviceType: "insurance"
+        serviceType: "Travel Insurance"
       };
 
       const res = await api.post('/service', payload);
