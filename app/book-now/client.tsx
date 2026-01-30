@@ -14,6 +14,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 // import { useToast } from "@/hooks/use-toast";
 import api, { fetchDestinations,fetchTourPackages } from "@/lib/api";
+import { destinationsList,packagesList } from "@/lib/destinations";
 import axios from "axios";
 import { toast } from "sonner";
 
@@ -30,24 +31,25 @@ const BookNow = () => {
     message: ""
   });
   
+  // console.log("des=",dest)
   const [destinations, setDestinations] = useState<any[]>([]);
   const [packages, setPackages] = useState<any[]>([]);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [loading, setLoading] = useState(false);
-  const [dataLoading, setDataLoading] = useState(true);
+  const [dataLoading, setDataLoading] = useState(false);
   const [successMsg, setSuccessMsg] = useState("");
 
 useEffect(() => {
   const fetchData = async () => {
-    setDataLoading(true);
+    // setDataLoading(true);
 
-    const desRes = await fetchDestinations();
-    const pkgRes = await fetchTourPackages();
+    // const desRes = await fetchDestinations();
+    // const pkgRes = await fetchTourPackages();
 
-    setDestinations(desRes?.data || []);
-    setPackages(pkgRes?.data || []);
+    setDestinations(destinationsList);
+    setPackages(packagesList);
 
-    setDataLoading(false);
+    // setDataLoading(false);
   };
   fetchData();
 }, []);
@@ -258,9 +260,9 @@ const BookingSkeleton = () => {
                           {destinations.map((item, idx) => (
                             <SelectItem
                               key={idx}
-                              value={item.title || item.name}
+                              value={item || item.title}
                             >
-                              {item.title || item.name}
+                              {item || item.title}
                             </SelectItem>
                           ))}
                         </SelectContent>
@@ -293,9 +295,9 @@ const BookingSkeleton = () => {
                           {packages.map((item, idx) => (
                             <SelectItem
                               key={idx}
-                              value={item.title || item.name}
+                              value={item || item.name}
                             >
-                              {item.title || item.name}
+                              {item || item.name}
                             </SelectItem>
                           ))}
                         </SelectContent>
