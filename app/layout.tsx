@@ -1,14 +1,13 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
-// import { Toaster } from "@/components/ui/toaster"
 import { Toaster as Sonner } from "@/components/ui/sonner"
 import { TooltipProvider } from "@/components/ui/tooltip"
 import { Providers } from './providers'
-// import { Toaster } from '@/components/ui/toaster'
 import TopProgress from '@/components/TopProgress'
 import { Suspense } from 'react'
 import { contactInfo } from '@/lib/global_variables'
+import Script from 'next/script'
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -22,11 +21,6 @@ export const metadata: Metadata = {
   authors: [{ name: `${contactInfo.websiteName} Team` }],
   creator: `${contactInfo.websiteName}`,
   publisher: `${contactInfo.websiteName}`,
-  formatDetection: {
-    email: false,
-    address: false,
-    telephone: false,
-  },
   metadataBase: new URL('https://jaipur-thailand.com'),
   alternates: {
     canonical: '/',
@@ -37,24 +31,16 @@ export const metadata: Metadata = {
     url: 'https://jaipur-thailand.com',
     siteName: `${contactInfo.websiteName}`,
     title: `${contactInfo.websiteName} - Travel & Tourism`,
-    description: `Discover amazing destinations and travel packages with ${contactInfo.websiteName}. Your gateway to unforgettable travel experiences around the world.`,
+    description: `Discover amazing destinations and travel packages with ${contactInfo.websiteName}.`,
   },
   twitter: {
     card: 'summary_large_image',
     title: `${contactInfo.websiteName} - Travel & Tourism`,
-    description: `Discover amazing destinations and travel packages with ${contactInfo.websiteName}. Your gateway to unforgettable travel experiences around the world.`,
-    creator: `@${contactInfo.websiteName}`,
+    description: `Discover amazing destinations and travel packages with ${contactInfo.websiteName}.`,
   },
   robots: {
     index: true,
     follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
   },
 }
 
@@ -65,15 +51,29 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
+      <head>
+        {/* Google Analytics */}
+        <Script
+          async
+          src="https://www.googletagmanager.com/gtag/js?id=G-VY6MHMEEDQ"
+        />
+        <Script id="google-analytics">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-VY6MHMEEDQ');
+          `}
+        </Script>
+      </head>
+
       <body className={inter.className}>
         <Providers>
           <TooltipProvider>
             <Suspense fallback={null}>
-              <TopProgress/>
+              <TopProgress />
             </Suspense>
-            {/* <Toaster /> */}
             <Sonner />
-            {/* <Toaster/> */}
             {children}
           </TooltipProvider>
         </Providers>
