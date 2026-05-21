@@ -43,6 +43,11 @@ type Summary = {
   counts: { bookings: number; inquiries: number; payments: number };
 };
 
+type InquirySource = "booking" | "contact" | "service";
+type InquirySourceFilter = InquirySource | "";
+
+type DashboardRecord = Record<string, unknown>;
+
 const formatDate = (d?: string | Date) => {
   if (!d) return "—";
   try {
@@ -171,18 +176,18 @@ export default function DashboardClient() {
   });
   const [profileSaving, setProfileSaving] = useState(false);
 
-  const [bookings, setBookings] = useState<unknown[]>([]);
+  const [bookings, setBookings] = useState<DashboardRecord[]>([]);
   const [bookingsPage, setBookingsPage] = useState(1);
   const [bookingsPages, setBookingsPages] = useState(1);
   const [bookingsLoading, setBookingsLoading] = useState(false);
 
-  const [inquiries, setInquiries] = useState<unknown[]>([]);
+  const [inquiries, setInquiries] = useState<DashboardRecord[]>([]);
   const [inquiriesPage, setInquiriesPage] = useState(1);
   const [inquiriesPages, setInquiriesPages] = useState(1);
-  const [inquirySource, setInquirySource] = useState("");
+  const [inquirySource, setInquirySource] = useState<InquirySourceFilter>("");
   const [inquiriesLoading, setInquiriesLoading] = useState(false);
 
-  const [payments, setPayments] = useState<unknown[]>([]);
+  const [payments, setPayments] = useState<DashboardRecord[]>([]);
   const [paymentsPage, setPaymentsPage] = useState(1);
   const [paymentsPages, setPaymentsPages] = useState(1);
   const [paymentsLoading, setPaymentsLoading] = useState(false);
@@ -234,7 +239,7 @@ export default function DashboardClient() {
     try {
       const res = await getMyBookings({ page, limit: 8 });
       if (res.data?.success) {
-        setBookings(res.data.data || []);
+        setBookings((res.data.data as DashboardRecord[]) || []);
         setBookingsPage(res.data.pagination?.page || 1);
         setBookingsPages(res.data.pagination?.totalPages || 1);
       }
@@ -243,17 +248,19 @@ export default function DashboardClient() {
     }
   };
 
-  const loadInquiries = async (page = 1, source = inquirySource) => {
+  const loadInquiries = async (
+    page = 1,
+    source: InquirySourceFilter = inquirySource
+  ) => {
     setInquiriesLoading(true);
     try {
-      const params: { page: number; limit: number; source?: string } = {
+      const res = await getMyInquiries({
         page,
         limit: 8,
-      };
-      if (source) params.source = source as "booking" | "contact" | "service";
-      const res = await getMyInquiries(params);
+        ...(source ? { source } : {}),
+      });
       if (res.data?.success) {
-        setInquiries(res.data.data || []);
+        setInquiries((res.data.data as DashboardRecord[]) || []);
         setInquiriesPage(res.data.pagination?.page || 1);
         setInquiriesPages(res.data.pagination?.totalPages || 1);
       }
@@ -267,7 +274,7 @@ export default function DashboardClient() {
     try {
       const res = await getMyPayments({ page, limit: 8 });
       if (res.data?.success) {
-        setPayments(res.data.data || []);
+        setPayments((res.data.data as DashboardRecord[]) || []);
         setPaymentsPage(res.data.pagination?.page || 1);
         setPaymentsPages(res.data.pagination?.totalPages || 1);
       }
@@ -577,7 +584,7 @@ export default function DashboardClient() {
                     <EmptyState message="No bookings yet. Plan your trip from Book Now." />
                   ) : (
                     <div className="space-y-3">
-                      {bookings.map((b: Record<string, unknown>) => (
+                      {bookings.map((b) => (
                         <div
                           key={String(b.id)}
                           className="rounded-lg border p-4 hover:bg-gray-50/80 transition-colors"
@@ -616,8 +623,9 @@ export default function DashboardClient() {
                     className="rounded-lg border px-3 py-1.5 text-sm w-full sm:w-auto"
                     value={inquirySource}
                     onChange={(e) => {
-                      setInquirySource(e.target.value);
-                      loadInquiries(1, e.target.value);
+                      const value = e.target.value as InquirySourceFilter;
+                      setInquirySource(value);
+                      loadInquiries(1, value);
                     }}
                   >
                     <option value="">All types</option>
@@ -635,7 +643,7 @@ export default function DashboardClient() {
                     <EmptyState message="No inquiries found for your account." />
                   ) : (
                     <div className="space-y-3">
-                      {inquiries.map((item: Record<string, unknown>) => (
+                      {inquiries.map((item) => (
                         <div
                           key={`${item.source}-${item.id}`}
                           className="rounded-lg border p-4"
@@ -651,12 +659,12 @@ export default function DashboardClient() {
                               <StatusBadge status={String(item.status)} />
                             </div>
                           </div>
-                          {item.destination ? (
+                          {item.destination != null && String(item.destination) ? (
                             <p className="text-sm text-gray-600">
                               {String(item.destination)}
                             </p>
                           ) : null}
-                          {item.message ? (
+                          {item.message != null && String(item.message) ? (
                             <p className="text-sm text-gray-500 mt-1 line-clamp-2">
                               {String(item.message)}
                             </p>
@@ -691,14 +699,14 @@ export default function DashboardClient() {
                     <EmptyState message="No payment records yet." />
                   ) : (
                     <div className="space-y-3">
-                      {payments.map((p: Record<string, unknown>) => (
+                      {payments.map((p) => (
                         <div
                           key={String(p.id)}
                           className="rounded-lg border p-4 flex flex-wrap justify-between gap-2"
                         >
                           <div>
                             <p className="font-semibold">
-                              {p.currency || "INR"} {String(p.amount ?? "—")}
+                              {String(p.currency || "INR")} {String(p.amount ?? "—")}
                             </p>
                             <p className="text-sm text-gray-500">
                               {String(p.description || p.paymentMethod || "Payment")}
