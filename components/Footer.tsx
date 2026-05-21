@@ -80,12 +80,15 @@ const Footer = () => {
           <div>
             <h3 className="text-lg font-semibold mb-6">Quick Links</h3>
             <ul className="space-y-3">
-              <li><a href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</a></li>
-              <li><a href="/destinations" className="text-gray-400 hover:text-white transition-colors">Destinations</a></li>
-              <li><a href="/packages" className="text-gray-400 hover:text-white transition-colors">Travel Packages</a></li>
+              {/* <li><a href="/about" className="text-gray-400 hover:text-white transition-colors">About Us</a></li> */}
+              {/* <li><a href="/destinations" className="text-gray-400 hover:text-white transition-colors">Destinations</a></li> */}
+              {/* <li><a href="/packages" className="text-gray-400 hover:text-white transition-colors">Travel Packages</a></li> */}
               {/* <li><a href="/tour" className="text-gray-400 hover:text-white transition-colors">Tours</a></li> */}
               <li><a href="/blog" className="text-gray-400 hover:text-white transition-colors">Blog</a></li>
               <li><a href="/contact" className="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+              <li><a href="/login" className="text-gray-400 hover:text-white transition-colors">Login</a></li>
+              <li><a href="/register" className="text-gray-400 hover:text-white transition-colors">Register</a></li>
+              <li><a href="/dashboard" className="text-gray-400 hover:text-white transition-colors">My Dashboard</a></li>
               <li><a href="/feedback" className="text-gray-400 hover:text-white transition-colors">Feedback</a></li>
             </ul>
           </div>

@@ -1,11 +1,25 @@
 import axios from "axios"
 
 const api=axios.create({
-    baseURL:"https://india-thailand-api-8.onrender.com/api"
+    baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://india-thailand-api-8.onrender.com/api"
     // baseURL:"http://127.0.0.1:3001/api"
 })
 
+api.interceptors.request.use((config) => {
+  if (typeof window !== "undefined") {
+    const token = localStorage.getItem("token");
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+  }
+  return config;
+});
+
 export default api
+
+export const googleAuthApi = async (idToken: string) => {
+  return api.post("/auth/google", { idToken });
+};
 
 
 export const fetchDestinations=async({page=1,search="",limit=0}={})=>{

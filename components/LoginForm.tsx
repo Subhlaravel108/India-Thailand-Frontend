@@ -1,7 +1,7 @@
 "use client"
 
 import { useState } from "react"
-// import { useRouter } from "next/navigation"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 // import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
@@ -10,8 +10,13 @@ import { Eye, EyeOff, Mail, Lock } from "lucide-react"
 import Link from "next/link"
 import { useToast } from "@/hooks/use-toast"
 import api from "@/lib/api"
+import { persistAuthSession, type AuthUser } from "@/lib/auth"
+import GoogleSignInButton from "@/components/GoogleSignInButton"
 import { toast } from "sonner"
 export default function LoginForm() {
+  const router = useRouter()
+  const searchParams = useSearchParams()
+  const redirectTo = searchParams.get("redirect") || "/dashboard"
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
   const [showPassword, setShowPassword] = useState(false)
@@ -37,21 +42,13 @@ export default function LoginForm() {
       }
       const res = await api.post("/auth/login", { email, password })
       if (res.data.success){
-        localStorage.setItem("isAuthenticated", 'true');
-        localStorage.setItem("role",res.data.data.role)
-        localStorage.setItem("token",res.data.data.token)
-      localStorage.setItem("user", JSON.stringify(res.data.data));
+        persistAuthSession(res.data.data as AuthUser);
 //       Cookies.set("isAuthenticated", "true"); 
 // Cookies.set("token", res.data.access_token)
 // Cookies.set("role", res.data.role)
 // Cookies.set("user", JSON.stringify(res.data))
         toast.success("Login successful")
-       
-      //   setTimeout(() => {
-      //     router.push("/"); // navigate home
-      //     window.location.reload(); // force full reload after navigation
-      // }, 100);
-      window.location.href = "/"; // Redirect to home page
+        router.push(redirectTo)
     }
        else {
     toast.error("Invalid email or password.",
@@ -86,7 +83,18 @@ return (
     <CardHeader>
       <CardTitle className="text-center">Sign In</CardTitle>
     </CardHeader>
-    <CardContent>
+    <CardContent className="space-y-6">
+      <GoogleSignInButton />
+
+      <div className="relative">
+        <div className="absolute inset-0 flex items-center">
+          <span className="w-full border-t border-gray-200" />
+        </div>
+        <div className="relative flex justify-center text-xs uppercase">
+          <span className="bg-white px-2 text-muted-foreground">Or sign in with email</span>
+        </div>
+      </div>
+
       <form onSubmit={handleSubmit} className="space-y-4">
         <div className="space-y-2">
           <Label htmlFor="email">Email</Label>

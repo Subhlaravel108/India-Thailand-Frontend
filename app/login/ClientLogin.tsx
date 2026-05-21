@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import LoginForm from "@/components/LoginForm";
@@ -14,7 +15,9 @@ export default function ClientLogin() {
           <h1 className="text-3xl font-bold text-gray-900 mb-2">Welcome Back</h1>
           <p className="text-gray-600">Login to your {contactInfo.websiteName} account</p>
         </div>
-        <LoginForm />
+        <Suspense fallback={<div className="text-center text-gray-500">Loading...</div>}>
+          <LoginForm />
+        </Suspense>
       </div>
     </div>
       <Footer/>

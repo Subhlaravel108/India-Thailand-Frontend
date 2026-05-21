@@ -12,6 +12,7 @@ import { Eye, EyeOff, Building, Mail, Phone } from "lucide-react"
 import Link from "next/link"
 // import { useToast } from "@/hooks/use-toast"
 import api from "@/lib/api"
+import GoogleSignInButton from "@/components/GoogleSignInButton"
 import { toast } from "sonner"
 
 export default function RegisterForm() {
@@ -78,13 +79,8 @@ export default function RegisterForm() {
       const response = await api.post("/auth/verify-otp", otpForm, {
         headers: { "Content-Type": "multipart/form-data" },
       });
-      toast.success("Register Sucessfully");
-
-      localStorage.setItem("isAuthenticated", 'true');
-      localStorage.setItem("role", response.data.role)
-      localStorage.setItem("user", JSON.stringify(response.data));
-      // Cookies.set('user', JSON.stringify(response.data), { path: '/', sameSite: 'lax' });
-      router.push("/");
+      toast.success("Email verified! Please sign in to continue.");
+      router.push("/login");
     } catch (err: any) {
       console.error(' OTP verification error:', err);
       const errorData = err.response?.data;
@@ -214,7 +210,20 @@ export default function RegisterForm() {
     <Card>
       <CardHeader></CardHeader>
       <CardContent>
-        {!showOtp ? (<form onSubmit={handleSubmit} className="space-y-4">
+        {!showOtp ? (
+          <div className="space-y-6">
+          <GoogleSignInButton />
+
+          <div className="relative">
+            <div className="absolute inset-0 flex items-center">
+              <span className="w-full border-t border-gray-200" />
+            </div>
+            <div className="relative flex justify-center text-xs uppercase">
+              <span className="bg-white px-2 text-muted-foreground">Or register with email</span>
+            </div>
+          </div>
+
+          <form onSubmit={handleSubmit} className="space-y-4">
 
           {/* First Name */}
           <div className="space-y-2">
@@ -340,7 +349,9 @@ export default function RegisterForm() {
               Login here
             </Link>
           </div>
-        </form>) : (
+        </form>
+        </div>
+        ) : (
           <form onSubmit={handleOtpSubmit} className="space-y-4">
             {otpError && (
               <div className="mb-4 p-3 bg-red-50 border border-red-200 rounded-md text-red-600 text-center text-sm">
