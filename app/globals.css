@@ -106,3 +106,8 @@
   display: none !important;
 }
 
+/* Dashboard: header height synced via ResizeObserver; fallback below */
+.dashboard-page {
+  --dashboard-header-h: 4rem;
+}
+

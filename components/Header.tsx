@@ -63,7 +63,12 @@ function UserAvatar({
   );
 }
 
-const Header = () => {
+type HeaderProps = {
+  /** Slim header for dashboard — hides top contact bar */
+  compact?: boolean;
+};
+
+const Header = ({ compact = false }: HeaderProps) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [user, setUser] = useState<AuthUser | null>(null);
@@ -239,6 +244,7 @@ const Header = () => {
 
   return (
     <header className="sticky top-0 z-50 bg-white border-b border-gray-100">
+      {!compact && (
       <div className="hidden lg:block bg-blue-900 text-white">
         <div className="container mx-auto flex justify-between items-center gap-4 px-4 py-2 text-xs">
           <div className="flex items-center gap-5">
@@ -263,6 +269,7 @@ const Header = () => {
           </div>
         </div>
       </div>
+      )}
 
       <nav className="container mx-auto px-4">
         <div className="flex h-16 lg:h-[4.25rem] items-center justify-between gap-3">

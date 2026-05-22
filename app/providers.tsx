@@ -9,12 +9,16 @@ const googleClientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID ?? ""
 export function Providers({ children }: { children: React.ReactNode }) {
   const [queryClient] = useState(() => new QueryClient())
 
+  const app = (
+    <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>
+  )
+
+  if (!googleClientId) {
+    return app
+  }
+
   return (
-    <GoogleOAuthProvider clientId={googleClientId}>
-      <QueryClientProvider client={queryClient}>
-        {children}
-      </QueryClientProvider>
-    </GoogleOAuthProvider>
+    <GoogleOAuthProvider clientId={googleClientId}>{app}</GoogleOAuthProvider>
   )
 }
 
